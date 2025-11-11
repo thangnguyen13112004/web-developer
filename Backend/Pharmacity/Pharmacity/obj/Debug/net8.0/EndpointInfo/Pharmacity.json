@@ -1,0 +1,1377 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Pharmacity",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Khachhang"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Khachhang"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Khachhang"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GioHang": {
+      "get": {
+        "tags": [
+          "GioHang"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "GioHang"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddToCartDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddToCartDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddToCartDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/GioHang/{malo}": {
+      "put": {
+        "tags": [
+          "GioHang"
+        ],
+        "parameters": [
+          {
+            "name": "malo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCartDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCartDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCartDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GioHang"
+        ],
+        "parameters": [
+          {
+            "name": "malo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/LoaiThuoc": {
+      "get": {
+        "tags": [
+          "LoaiThuoc"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Loaithuoc"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Loaithuoc"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Loaithuoc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/NhanVien": {
+      "get": {
+        "tags": [
+          "NhanVien"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nhanvien"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nhanvien"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nhanvien"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Thuoc": {
+      "get": {
+        "tags": [
+          "Thuoc"
+        ],
+        "parameters": [
+          {
+            "name": "maloai",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceSort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thuoc"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thuoc"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Thuoc"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Thuoc/{id}": {
+      "get": {
+        "tags": [
+          "Thuoc"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thuoc"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thuoc"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Thuoc"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddToCartDto": {
+        "type": "object",
+        "properties": {
+          "maThuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soLuong": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Baocao": {
+        "type": "object",
+        "properties": {
+          "mabc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "loaibaocao": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaylap": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "manv": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "noidung": {
+            "type": "string",
+            "nullable": true
+          },
+          "manvNavigation": {
+            "$ref": "#/components/schemas/Nhanvien"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Chitietdondathang": {
+        "type": "object",
+        "properties": {
+          "maddh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mathuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soluong": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dongia": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "thanhtien": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "maddhNavigation": {
+            "$ref": "#/components/schemas/Dondathang"
+          },
+          "mathuocNavigation": {
+            "$ref": "#/components/schemas/Thuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Chitietdonhang": {
+        "type": "object",
+        "properties": {
+          "madh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "malo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soluong": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dongia": {
+            "type": "number",
+            "format": "double"
+          },
+          "thanhtien": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "madhNavigation": {
+            "$ref": "#/components/schemas/Donhang"
+          },
+          "maloNavigation": {
+            "$ref": "#/components/schemas/Lothuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Chitietdonthuoc": {
+        "type": "object",
+        "properties": {
+          "madonthuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mathuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soluong": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lieudung": {
+            "type": "string",
+            "nullable": true
+          },
+          "dongia": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "thanhtien": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "madonthuocNavigation": {
+            "$ref": "#/components/schemas/Donthuoc"
+          },
+          "mathuocNavigation": {
+            "$ref": "#/components/schemas/Thuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Chitietphieunhap": {
+        "type": "object",
+        "properties": {
+          "mapn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mathuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "solo": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaysanxuat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "hansudung": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "soluong": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dongia": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "thanhtien": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "mapnNavigation": {
+            "$ref": "#/components/schemas/Phieunhaphang"
+          },
+          "mathuocNavigation": {
+            "$ref": "#/components/schemas/Thuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Dondathang": {
+        "type": "object",
+        "properties": {
+          "maddh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mancc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manv": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ngaydat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tongtien": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "trangthai": {
+            "type": "string",
+            "nullable": true
+          },
+          "chitietdondathangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdondathang"
+            },
+            "nullable": true
+          },
+          "manccNavigation": {
+            "$ref": "#/components/schemas/Nhacungcap"
+          },
+          "manvNavigation": {
+            "$ref": "#/components/schemas/Nhanvien"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Donhang": {
+        "type": "object",
+        "properties": {
+          "madh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "makh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "madonthuoc": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ngaydat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "trangthai": {
+            "type": "string",
+            "nullable": true
+          },
+          "tongtien": {
+            "type": "number",
+            "format": "double"
+          },
+          "chitietdonhangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdonhang"
+            },
+            "nullable": true
+          },
+          "madonthuocNavigation": {
+            "$ref": "#/components/schemas/Donthuoc"
+          },
+          "makhNavigation": {
+            "$ref": "#/components/schemas/Khachhang"
+          },
+          "thanhtoans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Thanhtoan"
+            },
+            "nullable": true
+          },
+          "mavouchers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Voucher"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Donthuoc": {
+        "type": "object",
+        "properties": {
+          "madonthuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "makh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenbacsi": {
+            "type": "string",
+            "nullable": true
+          },
+          "benhvien": {
+            "type": "string",
+            "nullable": true
+          },
+          "chuandoan": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaykethuoc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "hinhanhdonthuoc": {
+            "type": "string",
+            "nullable": true
+          },
+          "chitietdonthuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdonthuoc"
+            },
+            "nullable": true
+          },
+          "donhangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Donhang"
+            },
+            "nullable": true
+          },
+          "makhNavigation": {
+            "$ref": "#/components/schemas/Khachhang"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Khachhang": {
+        "type": "object",
+        "properties": {
+          "makh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hoten": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdt": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "diachi": {
+            "type": "string",
+            "nullable": true
+          },
+          "matkhau": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaytao": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "donhangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Donhang"
+            },
+            "nullable": true
+          },
+          "donthuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Donthuoc"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Kho": {
+        "type": "object",
+        "properties": {
+          "makho": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenkho": {
+            "type": "string",
+            "nullable": true
+          },
+          "diachi": {
+            "type": "string",
+            "nullable": true
+          },
+          "tonkhos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tonkho"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Loaithuoc": {
+        "type": "object",
+        "properties": {
+          "maloai": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenloai": {
+            "type": "string",
+            "nullable": true
+          },
+          "thuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Thuoc"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "sdt": {
+            "type": "string",
+            "nullable": true
+          },
+          "matKhau": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Lothuoc": {
+        "type": "object",
+        "properties": {
+          "malo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mathuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "solo": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaysanxuat": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "hansudung": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "soluongnhap": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dongianhap": {
+            "type": "number",
+            "format": "double"
+          },
+          "mancc": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "manv": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ngaynhap": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "chitietdonhangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdonhang"
+            },
+            "nullable": true
+          },
+          "manccNavigation": {
+            "$ref": "#/components/schemas/Nhacungcap"
+          },
+          "manvNavigation": {
+            "$ref": "#/components/schemas/Nhanvien"
+          },
+          "mathuocNavigation": {
+            "$ref": "#/components/schemas/Thuoc"
+          },
+          "tonkhos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tonkho"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Nhacungcap": {
+        "type": "object",
+        "properties": {
+          "mancc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenncc": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdt": {
+            "type": "string",
+            "nullable": true
+          },
+          "diachi": {
+            "type": "string",
+            "nullable": true
+          },
+          "dondathangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dondathang"
+            },
+            "nullable": true
+          },
+          "lothuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lothuoc"
+            },
+            "nullable": true
+          },
+          "phieunhaphangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Phieunhaphang"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Nhanvien": {
+        "type": "object",
+        "properties": {
+          "manv": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hoten": {
+            "type": "string",
+            "nullable": true
+          },
+          "chucvu": {
+            "type": "string",
+            "nullable": true
+          },
+          "taikhoan": {
+            "type": "string",
+            "nullable": true
+          },
+          "matkhau": {
+            "type": "string",
+            "nullable": true
+          },
+          "trangthai": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ngaytao": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "baocaos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Baocao"
+            },
+            "nullable": true
+          },
+          "dondathangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dondathang"
+            },
+            "nullable": true
+          },
+          "lothuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lothuoc"
+            },
+            "nullable": true
+          },
+          "phieunhaphangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Phieunhaphang"
+            },
+            "nullable": true
+          },
+          "thanhtoans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Thanhtoan"
+            },
+            "nullable": true
+          },
+          "maquyens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quyentruycap"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Phieunhaphang": {
+        "type": "object",
+        "properties": {
+          "mapn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mancc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manv": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ngaynhap": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tongtien": {
+            "type": "number",
+            "format": "double"
+          },
+          "ghichu": {
+            "type": "string",
+            "nullable": true
+          },
+          "chitietphieunhaps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietphieunhap"
+            },
+            "nullable": true
+          },
+          "manccNavigation": {
+            "$ref": "#/components/schemas/Nhacungcap"
+          },
+          "manvNavigation": {
+            "$ref": "#/components/schemas/Nhanvien"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Quyentruycap": {
+        "type": "object",
+        "properties": {
+          "maquyen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenquyen": {
+            "type": "string",
+            "nullable": true
+          },
+          "mota": {
+            "type": "string",
+            "nullable": true
+          },
+          "manvs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Nhanvien"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "hoTen": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdt": {
+            "type": "string",
+            "nullable": true
+          },
+          "matKhau": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Thanhtoan": {
+        "type": "object",
+        "properties": {
+          "matt": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "madh": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "manv": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "phuongthuc": {
+            "type": "string",
+            "nullable": true
+          },
+          "trangthai": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngaytt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "madhNavigation": {
+            "$ref": "#/components/schemas/Donhang"
+          },
+          "manvNavigation": {
+            "$ref": "#/components/schemas/Nhanvien"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Thuoc": {
+        "type": "object",
+        "properties": {
+          "mathuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenthuoc": {
+            "type": "string",
+            "nullable": true
+          },
+          "hoatchat": {
+            "type": "string",
+            "nullable": true
+          },
+          "sodangky": {
+            "type": "string",
+            "nullable": true
+          },
+          "quycachdonggoi": {
+            "type": "string",
+            "nullable": true
+          },
+          "donvitinh": {
+            "type": "string",
+            "nullable": true
+          },
+          "giaban": {
+            "type": "number",
+            "format": "double"
+          },
+          "soluongton": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nhasx": {
+            "type": "string",
+            "nullable": true
+          },
+          "loaithuoc": {
+            "type": "string",
+            "nullable": true
+          },
+          "chongchidinh": {
+            "type": "string",
+            "nullable": true
+          },
+          "lieudung": {
+            "type": "string",
+            "nullable": true
+          },
+          "maloai": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "hinhanh": {
+            "type": "string",
+            "nullable": true
+          },
+          "giacu": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "chitietdondathangs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdondathang"
+            },
+            "nullable": true
+          },
+          "chitietdonthuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietdonthuoc"
+            },
+            "nullable": true
+          },
+          "chitietphieunhaps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chitietphieunhap"
+            },
+            "nullable": true
+          },
+          "lothuocs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Lothuoc"
+            },
+            "nullable": true
+          },
+          "maloaiNavigation": {
+            "$ref": "#/components/schemas/Loaithuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tonkho": {
+        "type": "object",
+        "properties": {
+          "malo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "makho": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soluongton": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "makhoNavigation": {
+            "$ref": "#/components/schemas/Kho"
+          },
+          "maloNavigation": {
+            "$ref": "#/components/schemas/Lothuoc"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateCartDto": {
+        "type": "object",
+        "properties": {
+          "soLuong": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Voucher": {
+        "type": "object",
+        "properties": {
+          "mavoucher": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenvoucher": {
+            "type": "string",
+            "nullable": true
+          },
+          "giatri": {
+            "type": "number",
+            "format": "double"
+          },
+          "loaigiamgia": {
+            "type": "string",
+            "nullable": true
+          },
+          "dontoithieu": {
+            "type": "number",
+            "format": "double"
+          },
+          "ngaybd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ngaykt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "trangthai": {
+            "type": "string",
+            "nullable": true
+          },
+          "madhs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Donhang"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
