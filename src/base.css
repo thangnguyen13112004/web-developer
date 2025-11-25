@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* THÊM ĐOẠN NÀY LÊN ĐẦU FILE BASE.CSS */
 html, body {
     margin: 0;

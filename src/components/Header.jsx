@@ -11,6 +11,12 @@ const formatPrice = (price) => {
 // 1. Nhận 3 props: currentUser, onLoginClick, onLogout
 function Header({ currentUser, onLoginClick, onLogout, cart }) {
 
+    // 1. Logic lấy tên hiển thị:
+    // Backend trả về 'name', Database là 'hoten'. Code này sẽ nhận cả hai.
+    const userName = currentUser ? (currentUser.hoten || currentUser.name || "Khách hàng") : "";
+
+   
+
     // 2. KHÔNG CẦN state, KHÔNG CẦN useEffect
     // Dùng thẳng prop `currentUser`
     const loggedInUser = currentUser;
@@ -72,7 +78,7 @@ function Header({ currentUser, onLoginClick, onLogout, cart }) {
             <li className="header__navbar-item header__navbar-user header__navbar-item--separate">
                 {/* Phần hiển thị tên user (giống icon giỏ hàng) */}
                 <i className="header__navbar-icon fa-solid fa-circle-user"></i>
-                <span className="header__navbar-user-name">{loggedInUser?.hoten}</span>
+                <span className="header__navbar-user-name">Chào, {userName}</span>
 
                 {/* Menu dropdown (tương tự .header__cart-list)
                   Chúng ta sẽ định nghĩa class CSS mới: .header__navbar-user-menu

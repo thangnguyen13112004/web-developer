@@ -1,38 +1,43 @@
 import React, { useState } from 'react';
 
-// Đảm bảo cổng 5223 là đúng với API của bạn
+// Sửa lại cho đúng port API của bạn
 const API_URL = 'http://localhost:5223/api/Auth'; 
 
-// Nhận 3 props: show (để hiển thị), onClose (để đóng), onLoginSuccess (để báo App.jsx)
 function AuthModal({ show, onClose, onLoginSuccess }) {
     const [isRegisterView, setIsRegisterView] = useState(false);
     
-    // States cho form
-    const [hoTen, setHoTen] = useState('');
-    const [sdt, setSdt] = useState('');
-    const [matKhau, setMatKhau] = useState('');
+    // LOGIN STATE: Dùng 'identifier' để chứa cả SĐT hoặc Tài khoản
+    const [identifier, setIdentifier] = useState(''); 
+    const [loginPass, setLoginPass] = useState('');
+
+    // REGISTER STATE: Vẫn giữ nguyên logic cũ cho khách hàng
+    const [regName, setRegName] = useState('');
+    const [regPhone, setRegPhone] = useState('');
+    const [regPass, setRegPass] = useState('');
+
     const [error, setError] = useState(null); 
 
-    // Hàm dọn dẹp form và đóng modal
     const handleClose = () => {
         setIsRegisterView(false);
         setError(null);
-        setHoTen('');
-        setSdt('');
-        setMatKhau('');
-        onClose(); // Gọi hàm onClose (chính là setShowAuthModal(false) của App.jsx)
+        // Reset form inputs
+        setIdentifier('');
+        setLoginPass('');
+        setRegName(''); setRegPhone(''); setRegPass('');
+        onClose(); 
     };
 
-    // Hàm xử lý Đăng nhập
+    // --- XỬ LÝ ĐĂNG NHẬP ---
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null);
 
         try {
+            // Gửi 'Identifier' thay vì 'Sdt' để khớp với DTO bên C#
             const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ sdt, matKhau })
+                body: JSON.stringify({ identifier: identifier, matKhau: loginPass }) 
             });
 
             const data = await response.json(); 
@@ -41,25 +46,18 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
                 throw new Error(data.message || 'Đăng nhập thất bại');
             }
 
-            // ĐĂNG NHẬP THÀNH CÔNG
-            // API (bước 4) đã trả về { token: "...", user: {...} }
-
-            // 1. Lưu token và user vào localStorage
-            localStorage.setItem('authToken', data.token); // <-- Dùng data.token
-            localStorage.setItem('appUser', JSON.stringify(data.user)); // <-- Dùng data.user
-
-            // 2. Báo cho App.jsx biết user VÀ token
-            onLoginSuccess(data.user, data.token); // <-- SỬA LẠI: GỬI 2 THAM SỐ
+            // Gọi callback để App.jsx xử lý tiếp (lưu token, chuyển trang...)
+            onLoginSuccess(data.user, data.token);
             
-            // 3. Tự động đóng modal
-            handleClose(); 
+            // Đóng modal nhưng không reset ngay để user thấy mượt
+            onClose(); 
 
         } catch (err) {
             setError(err.message);
         }
     };
-    
-    // Hàm xử lý Đăng ký
+
+    // --- XỬ LÝ ĐĂNG KÝ (Chỉ cho Khách hàng) ---
     const handleRegister = async (e) => {
         e.preventDefault();
         setError(null);
@@ -68,7 +66,7 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
             const response = await fetch(`${API_URL}/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ hoTen, sdt, matKhau })
+                body: JSON.stringify({ hoTen: regName, sdt: regPhone, matKhau: regPass })
             });
 
             const data = await response.json();
@@ -77,11 +75,10 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
                 throw new Error(data.message || 'Đăng ký thất bại');
             }
             
-            // Đăng ký thành công, reset form và chuyển sang tab Đăng nhập
+            // Đăng ký thành công -> Chuyển qua view Đăng nhập
             setIsRegisterView(false);
-            setHoTen('');
-            setSdt('');
-            setMatKhau('');
+            setIdentifier(regPhone); // Điền sẵn SĐT vừa đăng ký vào ô đăng nhập
+            setRegName(''); setRegPhone(''); setRegPass('');
             setError('Đăng ký thành công! Vui lòng đăng nhập.');
 
         } catch (err) {
@@ -89,16 +86,30 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
         }
     };
 
-    // ----- JSX (Giao diện) -----
-
+    // --- GIAO DIỆN FORM ĐĂNG NHẬP ---
     const renderLogin = () => (
         <form onSubmit={handleLogin}>
             <div className="auth-form__form">
                 <div className="auth-form__group">
-                    <input type="text" className="auth-form__input" placeholder="Số điện thoại" value={sdt} onChange={(e) => setSdt(e.target.value)} required />
+                    {/* Input này chấp nhận cả SĐT và Tài khoản Admin */}
+                    <input 
+                        type="text" 
+                        className="auth-form__input" 
+                        placeholder="Số điện thoại / Tài khoản" 
+                        value={identifier} 
+                        onChange={(e) => setIdentifier(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <div className="auth-form__group">
-                    <input type="password" className="auth-form__input" placeholder="Mật khẩu" value={matKhau} onChange={(e) => setMatKhau(e.target.value)} required />
+                    <input 
+                        type="password" 
+                        className="auth-form__input" 
+                        placeholder="Mật khẩu" 
+                        value={loginPass} 
+                        onChange={(e) => setLoginPass(e.target.value)} 
+                        required 
+                    />
                 </div>
             </div>
             <div className="auth-form__controls">
@@ -107,17 +118,18 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
         </form>
     );
 
+    // --- GIAO DIỆN FORM ĐĂNG KÝ ---
     const renderRegister = () => (
         <form onSubmit={handleRegister}>
             <div className="auth-form__form">
                 <div className="auth-form__group">
-                    <input type="text" className="auth-form__input" placeholder="Họ và tên" value={hoTen} onChange={(e) => setHoTen(e.target.value)} required />
+                    <input type="text" className="auth-form__input" placeholder="Họ và tên" value={regName} onChange={(e) => setRegName(e.target.value)} required />
                 </div>
                 <div className="auth-form__group">
-                    <input type="text" className="auth-form__input" placeholder="Số điện thoại" value={sdt} onChange={(e) => setSdt(e.target.value)} required />
+                    <input type="text" className="auth-form__input" placeholder="Số điện thoại" value={regPhone} onChange={(e) => setRegPhone(e.target.value)} required />
                 </div>
                 <div className="auth-form__group">
-                    <input type="password" className="auth-form__input" placeholder="Mật khẩu" value={matKhau} onChange={(e) => setMatKhau(e.target.value)} required />
+                    <input type="password" className="auth-form__input" placeholder="Mật khẩu" value={regPass} onChange={(e) => setRegPass(e.target.value)} required />
                 </div>
             </div>
             <div className="auth-form__controls">
@@ -126,16 +138,16 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
         </form>
     );
 
-    // Vỏ Modal của Bootstrap
+    // --- RENDER MODAL CHÍNH ---
     return (
         <div 
             className={`modal fade ${show ? 'show d-block' : ''}`} 
             style={{ 
                 backgroundColor: show ? 'rgba(0,0,0,0.5)' : 'transparent', 
-                transition: 'none' // Tắt transition mặc định của Bootstrap
+                transition: 'none'
             }} 
             tabIndex="-1"
-            onClick={handleClose} // Đóng khi click ra nền mờ
+            onClick={handleClose}
         >
             <div className="modal-dialog modal-dialog-centered" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-content auth-form">
@@ -151,7 +163,11 @@ function AuthModal({ show, onClose, onLoginSuccess }) {
                     </div>
                     
                     <div className="modal-body auth-form__container">
-                        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                        {error && (
+                            <div className={`alert ${error.includes('thành công') ? 'alert-success' : 'alert-danger'}`} role="alert">
+                                {error}
+                            </div>
+                        )}
                         
                         {isRegisterView ? renderRegister() : renderLogin()}
                     </div>

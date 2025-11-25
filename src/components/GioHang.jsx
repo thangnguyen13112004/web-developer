@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Hàm định dạng tiền tệ
 const formatPrice = (price) => {
@@ -189,7 +190,13 @@ function GioHang({ cart, onUpdateQuantity, onRemoveItem }) {
                                     <span className="cart__detail-item-value1">{formatPrice(tongTien)}</span>
                                 </div>
 
-                                <button className="cart__detail-btn btn_css btn--primary_css">Mua hàng ({soLuongTong})</button>
+                                <Link 
+                                    to={cart.length > 0 ? "/dat-hang" : "#"} // Chỉ cho phép đi khi có hàng
+                                    className={`cart__detail-btn btn_css btn--primary_css ${cart.length === 0 ? 'disabled' : ''}`}
+                                    style={{ textDecoration: 'none' }} // Tắt gạch chân
+                                >
+                                    Mua hàng ({soLuongTong})
+                                </Link>
                             </div>
                         </div>
                     </div>
