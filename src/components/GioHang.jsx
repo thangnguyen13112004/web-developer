@@ -191,9 +191,10 @@ function GioHang({ cart, onUpdateQuantity, onRemoveItem }) {
                                 </div>
 
                                 <Link 
-                                    to={cart.length > 0 ? "/dat-hang" : "#"} // Chỉ cho phép đi khi có hàng
-                                    className={`cart__detail-btn btn_css btn--primary_css ${cart.length === 0 ? 'disabled' : ''}`}
-                                    style={{ textDecoration: 'none' }} // Tắt gạch chân
+                                    to={selectedItems.length > 0 ? "/dat-hang" : "#"} 
+                                    state={{ selectedItems: selectedItems }} // <--- TRUYỀN DANH SÁCH CHỌN SANG DAT HANG
+                                    className={`cart__detail-btn btn_css btn--primary_css ${selectedItems.length === 0 ? 'disabled' : ''}`}
+                                    style={{ textDecoration: 'none' }}
                                 >
                                     Mua hàng ({soLuongTong})
                                 </Link>

@@ -3,6 +3,8 @@ import { Routes, Route, useLocation, useNavigate, Outlet, Link } from 'react-rou
 // 1. THÊM IMPORT CÒN THIẾU (ĐÂY LÀ LỖI CHÍNH)
 import './base.css';
 import './main.css';
+import "./Chatbox.css";
+
 
 import Header from './components/Header.jsx';
 // 2. XÓA 2 IMPORT THỪA NÀY (vì HomePage đã quản lý chúng)
@@ -11,12 +13,26 @@ import AuthModal from './components/AuthModal.jsx';
 import HomePage from './components/HomePage.jsx';
 import GioHang from './components/GioHang.jsx';
 import DatHang from './components/Dathang.jsx';
+import UserInfo from './components/UserInfo.jsx';
+import Chatbox from './components/Chatbox.jsx'; // <--- Import Chatbox
+import ProductDetail from './components/ProductDetail.jsx'; // Import trang mới
+
 
 // Import Admin Components
+import Dashboard from './admin/components/Dashboard.jsx'; // Đảm bảo đúng đường dẫn file vừa tạo
 import AdminLayout from './admin/layouts/AdminLayout.jsx';
 import ProductList from './admin/products/ProductList.jsx';
 import ProductCreate from './admin/products/ProductCreate.jsx';
 import ProductEdit from './admin/products/ProductEdit';
+import WarehouseImport from './admin/Import/WarehouseImport.jsx'; 
+import LotList from './admin/warehouse/LotList.jsx';
+import OrderList from './admin/orders/OrderList.jsx';
+import CustomerProfile from './components/CustomerProfile.jsx'; // Đảm bảo đã import
+import OrderDetail from './components/OrderDetail.jsx';
+import UserLayout from './layouts/UserLayout.jsx'; // Import Layout vừa tạo
+import ImportList from './admin/Import/ImportList.jsx';
+import EmployeeList from './admin/components/EmployeeList.jsx';
+import BackupRestore from './admin/configuration/BackupRestore.jsx';
 
 
 // HÀM HELPER ĐỂ LẤY TOKEN
@@ -78,16 +94,11 @@ function App() {
   // SỬA LẠI LOGIC CHECK ADMIN (Thêm .toLowerCase() để chắc chắn)
   const isUserAdmin = (user) => {
       if (!user) return false;
+      const role = user.role || '';
       
-      // Log kiểm tra xem user nhận được là gì
-      console.log("Checking Admin Role for:", user); 
-
-      // Kiểm tra Role từ Backend trả về (API AuthController trả về 'role')
-      const role = user.role || user.chucvu || '';
-      
-      return role === 'Admin' || 
-             role === 'Quản lý cửa hàng' || 
-             role.toLowerCase() === 'admin';
+      // Cho phép Admin, Manager và cả Staff vào trang quản trị
+      // (Nhưng Staff sẽ thấy ít menu hơn - xử lý ở Sidebar)
+      return role === 'Admin' || role === 'Manager' || role === 'Staff';
   };
 
   const handleLoginSuccess = (user, token) => {
@@ -239,8 +250,32 @@ function App() {
             } />
 
             <Route path="/dat-hang" element={
-                <DatHang cart={cart} currentUser={currentUser} />
+                <DatHang 
+                    cart={cart} 
+                    currentUser={currentUser} 
+                    // 👇 BỔ SUNG DÒNG NÀY
+                    onOrderPlaced={fetchUserCart} 
+                />
             } />
+
+            <Route path="/tai-khoan" element={<UserLayout />}>
+                {/* Route index: Mặc định vào /tai-khoan sẽ hiện CustomerProfile (Lịch sử)
+                */}
+                <Route index element={<CustomerProfile />} />
+                
+                {/* Route con: /tai-khoan/don-hang/:id sẽ hiện OrderDetail
+                    nhưng VẪN GIỮ sidebar của UserLayout
+                */}
+                <Route path="don-hang/:id" element={<OrderDetail />} />
+            </Route>
+
+            {/* Route Thông tin cá nhân: Dùng chung UserLayout để có Sidebar */}
+            <Route path="/thong-tin" element={<UserLayout />}>
+                <Route index element={<UserInfo />} />
+            </Route>
+
+            {/* ROUTE CHI TIẾT SẢN PHẨM */}
+            <Route path="/san-pham/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
 
 
             {/* --- GROUP 2: CÁC ROUTE CỦA ADMIN --- */}
@@ -249,14 +284,36 @@ function App() {
                - Các route con sẽ hiển thị bên trong <Outlet /> của AdminLayout
             */}
             <Route path="/admin" element={<AdminLayout />}>
-                
-                {/* Mặc định vào /admin sẽ hiện Dashboard */}
-                <Route index element={<div className="p-6"><h2>Dashboard Thống kê (Chưa có component)</h2></div>} />
+
+                {/* Route Mặc định (Tổng quan) */}
+                <Route index element={<Dashboard />} />
+
+                {/* Route Báo cáo (cũng trỏ về Dashboard hoặc tạo trang riêng sau này) */}
+                <Route path="reports" element={<Dashboard />} />
                 
                 {/* Quản lý sản phẩm */}
                 <Route path="products" element={<ProductList />} />
                 <Route path="products/create" element={<ProductCreate />} />
                 <Route path="products/edit/:id" element={<ProductEdit />} />
+
+                {/* Route nhập kho mới */}
+                <Route path="warehouse/import" element={<WarehouseImport />} />
+
+                {/* Route quản lý lô thuốc */}
+                <Route path="warehouse/lots" element={<LotList />} />
+
+                {/* ĐÃ THÊM: Route quản lý đơn hàng */}
+                <Route path="orders" element={<OrderList />} />
+
+                // 2. Trong Route Admin
+                <Route path="warehouse/receipts" element={<ImportList />} />
+
+                {/* Route Quản lý nhân viên (Route này trùng với link trong sidebar) */}
+                <Route path="customers" element={<EmployeeList />} />
+
+                <Route path="configuration/backup" element={<BackupRestore />} />
+
+                
                 
                 {/* Bạn có thể thêm các route admin khác ở đây */}
                 {/* <Route path="categories" element={<CategoryList />} /> */}
@@ -277,6 +334,8 @@ function App() {
         onClose={() => setShowAuthModal(false)} 
         onLoginSuccess={handleLoginSuccess}
       />
+
+      {!isAdminRoute && <Chatbox />}
     </div>
   );
 }

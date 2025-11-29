@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function ProductItem({ product, onProductSelect }) {
     
@@ -32,14 +33,18 @@ function ProductItem({ product, onProductSelect }) {
         <div className="grid__column-2-4">
             <div className="home-product-item">
                 
-                <a href="#" className="home-product-item__link">
+                <Link to={`/san-pham/${product.mathuoc}`} style={{textDecoration: 'none'}}>
                     <div 
                         className="home-product-item__img" 
                         style={{ backgroundImage: `url(${product.hinhanh || defaultImage})` }}
                     ></div>
-                </a>
+                </Link>
 
-                <a href="#" className="home-product-item__name">{product.tenthuoc}</a>
+                <h4 className="home-product-item__name">
+                    <Link to={`/san-pham/${product.mathuoc}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                        {product.tenthuoc}
+                    </Link>
+                </h4>
 
                 <div className="home-product-item__price">
                     {/* Hiển thị giá cũ (nếu có) */}
@@ -63,6 +68,19 @@ function ProductItem({ product, onProductSelect }) {
                     >
                         Chọn sản phẩm
                     </button>
+
+                    {/* 2. Nút bấm: Nếu hết hàng thì Disable và đổi chữ */}
+                    {/* <button 
+                        className={`btn-add-cart ${isOutOfStock ? 'disabled' : ''}`}
+                        onClick={() => !isOutOfStock && onProductSelect(product.mathuoc)}
+                        disabled={isOutOfStock} // Khoá nút lại
+                        style={{ 
+                            backgroundColor: isOutOfStock ? '#ccc' : '#007bff',
+                            cursor: isOutOfStock ? 'not-allowed' : 'pointer'
+                        }}
+                    >
+                        {isOutOfStock ? "Sắp có hàng" : "Chọn sản phẩm"}
+                    </button> */}
                 </div>
 
                 {/* =================================================================== */}

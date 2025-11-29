@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AddressModal from './AddressModal.jsx'; // 1. Import modal
 
 // --- IMPORT ẢNH TẠI ĐÂY ---
@@ -22,6 +22,11 @@ function DatHang({ cart, currentUser, onOrderPlaced }) {
     const [loadingAddress, setLoadingAddress] = useState(true);
     const [showAddressModal, setShowAddressModal] = useState(false); // 2. State để mở/đóng modal
     const navigate = useNavigate();
+    const [paymentMethod, setPaymentMethod] = useState('cod');
+    const location = useLocation(); // Hook lấy dữ liệu truyền từ GioHang
+
+    // Ưu tiên lấy items từ state (nếu được truyền từ Giỏ hàng hoặc Mua ngay), nếu không thì lấy toàn bộ cart
+    const itemsToCheckout = location.state?.selectedItems || cart;
 
     const fetchDefaultAddress = async () => {
         setLoadingAddress(true);
@@ -58,26 +63,46 @@ function DatHang({ cart, currentUser, onOrderPlaced }) {
         }
         
         const token = getAuthToken();
-        const res = await fetch('http://localhost:5223/api/DatHang', {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+        // Lấy danh sách MaLo để gửi về server
+        const selectedMalos = itemsToCheckout.map(item => item.malo);
+        try {
+            const res = await fetch('http://localhost:5223/api/DatHang', {
+                method: 'POST',
+                headers: { 
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json' // <--- QUAN TRỌNG: THÊM DÒNG NÀY ĐỂ SỬA LỖI 415
+                },
+                // Gửi dữ liệu thật khớp với CheckoutDto ở Backend
+                body: JSON.stringify({ 
+                    maDC: defaultAddress.madc,   // Lấy ID địa chỉ
+                    phuongThucTT: paymentMethod,  // Lấy phương thức thanh toán từ state
+                    selectedMalos: selectedMalos // <--- GỬI DANH SÁCH ID ĐÃ CHỌN
+                }) 
+            });
 
-        if(res.ok) {
-            alert("Đặt hàng thành công!");
-            onOrderPlaced(); // Báo cho App.jsx biết để xóa giỏ hàng
-            navigate("/"); // Chuyển về trang chủ
-        } else {
-            alert("Lỗi khi đặt hàng.");
+            if(res.ok) {
+                const data = await res.json(); // API trả về { message, orderId }
+            
+                alert("Đặt hàng thành công!");
+                onOrderPlaced(); // Xóa giỏ hàng
+                
+                // Chuyển hướng đến trang Lịch sử đơn hàng
+                navigate(`/tai-khoan/don-hang/${data.orderId}`);
+            } else {
+                const err = await res.json();
+                alert("Lỗi khi đặt hàng: " + (err.message || "Có lỗi xảy ra"));
+            }
+        } catch (e) {
+            console.error(e);
+            alert("Lỗi kết nối server");
         }
     };
     
-    // (Tính toán tiền)
-    const selectedItems = cart;
-    const tamTinh = selectedItems.reduce((total, item) => (item.giacu || item.dongia) * item.soluong + total, 0);
-    const giamGiaSanPham = selectedItems.reduce((total, item) => total + ((item.giacu || item.dongia) - item.dongia) * item.soluong, 0);
+    // Tính toán lại tổng tiền dựa trên itemsToCheckout
+    const tamTinh = itemsToCheckout.reduce((total, item) => (item.giacu || item.dongia) * item.soluong + total, 0);
+    const giamGiaSanPham = itemsToCheckout.reduce((total, item) => total + ((item.giacu || item.dongia) - item.dongia) * item.soluong, 0);
     const tongTien = tamTinh - giamGiaSanPham;
-    const soLuongTong = selectedItems.reduce((total, item) => total + item.soluong, 0);
+    const soLuongTong = itemsToCheckout.reduce((total, item) => total + item.soluong, 0);
 
     // JSX render phần địa chỉ (Render có điều kiện)
     const renderDeliveryInfo = () => {
@@ -140,7 +165,7 @@ function DatHang({ cart, currentUser, onOrderPlaced }) {
                         <div className="order__infor">
                             <h2 className="order__infor-title">Thanh toán</h2>
                             <ul className="order__infor-list-item">
-                                {cart.map(item => (
+                                {itemsToCheckout.map(item => (
                                     <li className="order__infor-item" key={item.malo}>
                                         <img src={item.hinhanh || 'https://placehold.co/100x100'} alt={item.tenthuoc} className="order__infor-img" />
                                         <div className="order__infor-item-info">
@@ -167,43 +192,90 @@ function DatHang({ cart, currentUser, onOrderPlaced }) {
                             <div className="payment-method-list">
                                 {/* 1. Tiền mặt (COD) */}
                                 <label className="payment-method-item" htmlFor="payment-cod">
-                                    <input type="radio" id="payment-cod" name="payment-method" className="payment-method-radio" value="cod" defaultChecked />
+                                    <input 
+                                        type="radio" 
+                                        id="payment-cod" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="cod" 
+                                        checked={paymentMethod === 'cod'} // Kiểm tra state
+                                        onChange={(e) => setPaymentMethod(e.target.value)} // Cập nhật state
+                                    />
                                     <span className="payment-method-logo cod-logo">COD</span>
                                     <span className="payment-method-label">Tiền mặt</span>
                                 </label>
 
                                 {/* 2. Momo */}
                                 <label className="payment-method-item" htmlFor="payment-momo">
-                                    <input type="radio" id="payment-momo" name="payment-method" className="payment-method-radio" value="momo" />
-                                    {/* Dùng biến momoImg (không có dấu ngoặc kép) */}
+                                    <input 
+                                        type="radio" 
+                                        id="payment-momo" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="momo" 
+                                        checked={paymentMethod === 'momo'}
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                    />
                                     <img src={momoImg} alt="Momo" className="payment-method-logo" /> 
                                     <span className="payment-method-label">Momo</span>
                                 </label>
 
                                 {/* 3. ZaloPay */}
                                 <label className="payment-method-item" htmlFor="payment-zalopay">
-                                    <input type="radio" id="payment-zalopay" name="payment-method" className="payment-method-radio" value="zalopay" />
+                                    <input 
+                                        type="radio" 
+                                        id="payment-zalopay" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="zalopay"
+                                        checked={paymentMethod === 'zalopay'} 
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                    />
                                     <img src={zalopayImg} alt="ZaloPay" className="payment-method-logo" />
                                     <span className="payment-method-label">ZaloPay</span>
                                 </label>
 
                                 {/* 4. Thẻ tín dụng */}
                                 <label className="payment-method-item" htmlFor="payment-creditcard">
-                                    <input type="radio" id="payment-creditcard" name="payment-method" className="payment-method-radio" value="creditcard" />
+                                    <input 
+                                        type="radio" 
+                                        id="payment-creditcard" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="creditcard"
+                                        checked={paymentMethod === 'creditcard'} 
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                    />
                                     <img src={creditCardImg} alt="Thẻ tín dụng" className="payment-method-logo" />
                                     <span className="payment-method-label">Thẻ tín dụng</span>
                                 </label>
 
                                 {/* 5. ATM */}
                                 <label className="payment-method-item" htmlFor="payment-atm">
-                                    <input type="radio" id="payment-atm" name="payment-method" className="payment-method-radio" value="atm" />
+                                    <input 
+                                        type="radio" 
+                                        id="payment-atm" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="atm"
+                                        checked={paymentMethod === 'atm'} 
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                    />
                                     <img src={atmImg} alt="Thẻ ATM" className="payment-method-logo" />
                                     <span className="payment-method-label">Thẻ ATM</span>
                                 </label>
 
                                 {/* 6. Apple Pay */}
                                 <label className="payment-method-item" htmlFor="payment-applepay">
-                                    <input type="radio" id="payment-applepay" name="payment-method" className="payment-method-radio" value="applepay" />
+                                    <input 
+                                        type="radio" 
+                                        id="payment-applepay" 
+                                        name="payment-method" 
+                                        className="payment-method-radio" 
+                                        value="applepay"
+                                        checked={paymentMethod === 'applepay'} 
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                    />
                                     <img src={applePayImg} alt="Apple Pay" className="payment-method-logo" />
                                     <span className="payment-method-label">Apple Pay</span>
                                 </label>

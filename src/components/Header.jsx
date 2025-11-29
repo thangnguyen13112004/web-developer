@@ -84,12 +84,17 @@ function Header({ currentUser, onLoginClick, onLogout, cart }) {
                   Chúng ta sẽ định nghĩa class CSS mới: .header__navbar-user-menu
                 */}
                 <ul className="header__navbar-user-menu">
+                    {/* --- SỬA ĐOẠN NÀY --- */}
                     <li className="header__navbar-user-item">
-                        <a href="#">Thông tin cá nhân</a>
+                        {/* Link đến trang Thông tin cá nhân */}
+                        <Link to="/thong-tin">Thông tin cá nhân</Link>
                     </li>
                     <li className="header__navbar-user-item">
-                        <a href="#">Lịch sử đơn hàng</a>
+                        {/* Link đến trang Lịch sử đơn hàng (CustomerProfile) */}
+                        <Link to="/tai-khoan">Lịch sử đơn hàng</Link>
                     </li>
+                    {/* ------------------- */}
+                    
                     <li className="header__navbar-user-item">
                         <a href="#">Mã giảm giá</a>
                     </li>
