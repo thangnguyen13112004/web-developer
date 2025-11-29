@@ -25,5 +25,7 @@ public partial class SoDiaChi
 
     public bool Macdinh { get; set; }
 
+    public virtual ICollection<Donhang> Donhangs { get; set; } = new List<Donhang>();
+
     public virtual Khachhang MakhNavigation { get; set; } = null!;
 }

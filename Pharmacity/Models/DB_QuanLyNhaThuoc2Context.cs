@@ -117,7 +117,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
         {
             entity.HasKey(e => new { e.Madh, e.Malo }).HasName("PK__chitietd__2D83FA1591E8A746");
 
-            entity.ToTable("chitietdonhang");
+            entity.ToTable("chitietdonhang", tb => tb.HasTrigger("trg_BanHang_TruTon"));
 
             entity.Property(e => e.Madh).HasColumnName("madh");
             entity.Property(e => e.Malo).HasColumnName("malo");
@@ -168,7 +168,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
         {
             entity.HasKey(e => new { e.Mapn, e.Mathuoc, e.Solo }).HasName("PK__chitietp__0382C05D72B49D6E");
 
-            entity.ToTable("chitietphieunhap");
+            entity.ToTable("chitietphieunhap", tb => tb.HasTrigger("trg_NhapHang_CapNhatTonKho"));
 
             entity.Property(e => e.Mapn).HasColumnName("mapn");
             entity.Property(e => e.Mathuoc).HasColumnName("mathuoc");
@@ -237,6 +237,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
             entity.Property(e => e.Madh)
                 .ValueGeneratedNever()
                 .HasColumnName("madh");
+            entity.Property(e => e.Madc).HasColumnName("madc");
             entity.Property(e => e.Madonthuoc).HasColumnName("madonthuoc");
             entity.Property(e => e.Makh).HasColumnName("makh");
             entity.Property(e => e.Ngaydat)
@@ -246,6 +247,10 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
             entity.Property(e => e.Trangthai)
                 .HasMaxLength(50)
                 .HasColumnName("trangthai");
+
+            entity.HasOne(d => d.MadcNavigation).WithMany(p => p.Donhangs)
+                .HasForeignKey(d => d.Madc)
+                .HasConstraintName("FK_DonHang_SoDiaChi");
 
             entity.HasOne(d => d.MadonthuocNavigation).WithMany(p => p.Donhangs)
                 .HasForeignKey(d => d.Madonthuoc)
@@ -303,6 +308,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.GioiTinh).HasMaxLength(10);
             entity.Property(e => e.Hoten)
                 .HasMaxLength(100)
                 .HasColumnName("hoten");
@@ -352,7 +358,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
         {
             entity.HasKey(e => e.Malo).HasName("PK__lothuoc__7A21A3246FAC0A37");
 
-            entity.ToTable("lothuoc");
+            entity.ToTable("lothuoc", tb => tb.HasTrigger("trg_AfterInsert_LoThuoc"));
 
             entity.HasIndex(e => new { e.Mathuoc, e.Solo }, "uq_lothuoc_solo").IsUnique();
 
@@ -570,7 +576,6 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
 
             entity.HasOne(d => d.ManvNavigation).WithMany(p => p.Thanhtoans)
                 .HasForeignKey(d => d.Manv)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__thanhtoan__manv__6A30C649");
         });
 
@@ -591,9 +596,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
                 .HasColumnName("donvitinh");
             entity.Property(e => e.Giaban).HasColumnName("giaban");
             entity.Property(e => e.Giacu).HasColumnName("giacu");
-            entity.Property(e => e.Hinhanh)
-                .HasMaxLength(500)
-                .HasColumnName("hinhanh");
+            entity.Property(e => e.Hinhanh).HasColumnName("hinhanh");
             entity.Property(e => e.Hoatchat)
                 .HasMaxLength(100)
                 .HasColumnName("hoatchat");
@@ -627,7 +630,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
         {
             entity.HasKey(e => new { e.Malo, e.Makho }).HasName("PK__tonkho__8A8A1C9E188423CD");
 
-            entity.ToTable("tonkho");
+            entity.ToTable("tonkho", tb => tb.HasTrigger("trg_UpdateThuoc_SoLuongTon"));
 
             entity.Property(e => e.Malo).HasColumnName("malo");
             entity.Property(e => e.Makho).HasColumnName("makho");
@@ -690,6 +693,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
                         j.IndexerProperty<int>("Madh").HasColumnName("madh");
                     });
         });
+        modelBuilder.HasSequence("seq_MaLo").StartsAt(113L);
 
         OnModelCreatingPartial(modelBuilder);
     }

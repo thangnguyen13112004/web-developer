@@ -3,32 +3,116 @@
   "WorkspaceRootPath": "D:\\KLTN\\Backend\\Pharmacity\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\models\\thuoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\models\\thuoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\models\\db_quanlynhathuoc2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\models\\db_quanlynhathuoc2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\admin\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\admin\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\admin\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\admin\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\admin\\databasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\admin\\databasecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\admin\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\admin\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\pharmacity.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\pharmacity.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\sodiachicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\sodiachicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\helpers\\fileuploadoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\helpers\\fileuploadoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\dathangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\dathangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\checkoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\checkoutdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\addtocartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\addtocartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\authdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\authdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\clientprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\clientprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\clientprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\clientprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\clientorderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\clientorderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\controllers\\clientorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\controllers\\clientorderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\models\\dondathang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\models\\dondathang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\orderreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\orderreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\lotreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\lotreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\importreceiptdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\importreceiptdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\productcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\productcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\models\\thuoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\models\\thuoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|d:\\kltn\\backend\\pharmacity\\pharmacity\\dtos\\admin\\productreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1D2551FA-C3A9-415E-8A6A-EB6BAA5150AE}|Pharmacity\\Pharmacity.csproj|solutionrelative:pharmacity\\dtos\\admin\\productreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,94 +126,356 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Program.cs",
-              "RelativeDocumentMoniker": "Pharmacity\\Program.cs",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Program.cs",
-              "RelativeToolTip": "Pharmacity\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T16:05:27.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\appsettings.json",
-              "RelativeDocumentMoniker": "Pharmacity\\appsettings.json",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\appsettings.json",
-              "RelativeToolTip": "Pharmacity\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-25T11:44:22.644Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Pharmacity\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAewHUAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T10:45:08.17Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "GioHangController.cs",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\GioHangController.cs",
-              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\GioHangController.cs",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\GioHangController.cs",
-              "RelativeToolTip": "Pharmacity\\Controllers\\GioHangController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T10:45:07.452Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Thuoc.cs",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Thuoc.cs",
-              "RelativeDocumentMoniker": "Pharmacity\\Models\\Thuoc.cs",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Thuoc.cs",
-              "RelativeToolTip": "Pharmacity\\Models\\Thuoc.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T09:20:52.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductCreateDto.cs",
-              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
-              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
-              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
-              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T09:14:11.808Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "ProductsController.cs",
               "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\ProductsController.cs",
               "RelativeDocumentMoniker": "Pharmacity\\Controllers\\Admin\\ProductsController.cs",
               "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\ProductsController.cs",
               "RelativeToolTip": "Pharmacity\\Controllers\\Admin\\ProductsController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAowM0AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-25T09:11:39.955Z",
+              "IsPinned": true,
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ReportsController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\ReportsController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\Admin\\ReportsController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\ReportsController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\Admin\\ReportsController.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAqwHQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:57:42.895Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Thuoc.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Thuoc.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Models\\Thuoc.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Thuoc.cs",
+              "RelativeToolTip": "Pharmacity\\Models\\Thuoc.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA6wBUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T18:38:12.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DatabaseController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\DatabaseController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\Admin\\DatabaseController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\DatabaseController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\Admin\\DatabaseController.cs",
+              "ViewState": "AgIAAD4BAAAAAAAAAAAowFcBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T13:27:46.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Program.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Program.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Program.cs",
+              "RelativeToolTip": "Pharmacity\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T14:26:04.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\Admin\\EmployeesController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\Admin\\EmployeesController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\Admin\\EmployeesController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA0wFMAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:45:50.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DB_QuanLyNhaThuoc2Context.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\DB_QuanLyNhaThuoc2Context.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Models\\DB_QuanLyNhaThuoc2Context.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\DB_QuanLyNhaThuoc2Context.cs",
+              "RelativeToolTip": "Pharmacity\\Models\\DB_QuanLyNhaThuoc2Context.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAiwLICAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T15:19:14.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pharmacity",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Pharmacity.csproj",
+              "RelativeDocumentMoniker": "Pharmacity\\Pharmacity.csproj",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Pharmacity.csproj",
+              "RelativeToolTip": "Pharmacity\\Pharmacity.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-28T14:31:00.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "NhanVienController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\NhanVienController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\NhanVienController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\NhanVienController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\NhanVienController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T14:53:48.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SoDiaChiController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\SoDiaChiController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\SoDiaChiController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\SoDiaChiController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\SoDiaChiController.cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAUwNMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T17:10:35.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FileUploadOperationFilter.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Helpers\\FileUploadOperationFilter.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Helpers\\FileUploadOperationFilter.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Helpers\\FileUploadOperationFilter.cs",
+              "RelativeToolTip": "Pharmacity\\Helpers\\FileUploadOperationFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T14:31:24.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CheckoutDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\CheckoutDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\CheckoutDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\CheckoutDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\CheckoutDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:21:03.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "GioHangController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\GioHangController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\GioHangController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\GioHangController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\GioHangController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T16:45:09.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AddToCartDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\AddToCartDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\AddToCartDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\AddToCartDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\AddToCartDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:20:46.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DatHangController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\DatHangController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\DatHangController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\DatHangController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\DatHangController.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAkwFcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T18:08:07.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "EmployeeDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\EmployeeDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\EmployeeDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\EmployeeDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\EmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:45:27.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ClientProfileDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\ClientProfileDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\ClientProfileDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\ClientProfileDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\ClientProfileDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:10:01.013Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ClientProfileController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\ClientProfileController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\ClientProfileController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\ClientProfileController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\ClientProfileController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAowD4AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T09:11:39.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AuthDtos.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\AuthDtos.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\AuthDtos.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\AuthDtos.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\AuthDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:03:16.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ClientOrdersController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\ClientOrdersController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\ClientOrdersController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\ClientOrdersController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\ClientOrdersController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAowEEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T17:43:53.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ClientOrderDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\ClientOrderDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\ClientOrderDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\ClientOrderDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\ClientOrderDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T17:39:59.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Pharmacity\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAowFYAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T10:45:08.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Dondathang.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Dondathang.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\Models\\Dondathang.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\Models\\Dondathang.cs",
+              "RelativeToolTip": "Pharmacity\\Models\\Dondathang.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T15:51:15.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "OrderReadDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\OrderReadDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\OrderReadDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\OrderReadDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\OrderReadDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T15:45:24.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LotReadDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\LotReadDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\LotReadDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\LotReadDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\LotReadDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T12:34:15.486Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ImportReceiptDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ImportReceiptDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\ImportReceiptDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ImportReceiptDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\ImportReceiptDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T09:17:49.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ProductReadDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductReadDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\ProductReadDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductReadDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\ProductReadDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T07:55:31.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ProductCreateDto.cs",
+              "DocumentMoniker": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
+              "RelativeDocumentMoniker": "Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
+              "ToolTip": "D:\\KLTN\\Backend\\Pharmacity\\Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
+              "RelativeToolTip": "Pharmacity\\DTOs\\Admin\\ProductCreateDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T09:14:11.808Z"
             }
           ]
         }

@@ -17,7 +17,11 @@ public partial class Donhang
 
     public double Tongtien { get; set; }
 
+    public int? Madc { get; set; }
+
     public virtual ICollection<Chitietdonhang> Chitietdonhangs { get; set; } = new List<Chitietdonhang>();
+
+    public virtual SoDiaChi? MadcNavigation { get; set; }
 
     public virtual Donthuoc? MadonthuocNavigation { get; set; }
 

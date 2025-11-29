@@ -66,26 +66,19 @@ namespace Pharmacity.Controllers
         }
 
         // POST: api/Auth/login
-        // Sửa logic: Kiểm tra cả 2 bảng
         [HttpPost("login")]
         public async Task<ActionResult<object>> Login(LoginRequestDto loginDto)
         {
-            // 1. ƯU TIÊN KIỂM TRA KHÁCH HÀNG (Dùng SĐT)
+            // 1. KHÁCH HÀNG (Giữ nguyên)
             var kh = await _context.Khachhangs
                 .FirstOrDefaultAsync(k => k.Sdt == loginDto.Identifier && k.Matkhau == loginDto.MatKhau);
-
             if (kh != null)
             {
-                // Tìm thấy khách hàng -> Role là Customer
                 string token = CreateToken(kh.Hoten, "Customer", kh.Makh.ToString());
-                return Ok(new
-                {
-                    token = token,
-                    user = new { id = kh.Makh, name = kh.Hoten, role = "Customer" }
-                });
+                return Ok(new { token, user = new { id = kh.Makh, name = kh.Hoten, role = "Customer" } });
             }
 
-            // 2. NẾU KHÔNG PHẢI KHÁCH, KIỂM TRA NHÂN VIÊN (Dùng Tài Khoản)
+            // 2. NHÂN VIÊN (Cập nhật Logic Phân Quyền)
             var nv = await _context.Nhanviens
                 .FirstOrDefaultAsync(n => n.Taikhoan == loginDto.Identifier && n.Matkhau == loginDto.MatKhau);
 
@@ -93,19 +86,28 @@ namespace Pharmacity.Controllers
             {
                 if (nv.Trangthai == false) return BadRequest(new { message = "Tài khoản đã bị khóa." });
 
-                // Mapping chức vụ DB sang Role hệ thống
-                string role = (nv.Chucvu == "Admin" || nv.Chucvu == "Quản lý cửa hàng") ? "Admin" : "Staff";
+                // --- MAP CHỨC VỤ TỪ DB SANG ROLE HỆ THỐNG ---
+                string role = "Staff"; // Mặc định là nhân viên thường
+                if (nv.Chucvu == "Admin") role = "Admin";
+                else if (nv.Chucvu == "Quản lý cửa hàng") role = "Manager";
 
+                // Tạo Token chứa Role mới này
                 string token = CreateToken(nv.Hoten, role, nv.Manv.ToString());
+
                 return Ok(new
                 {
                     token = token,
-                    user = new { id = nv.Manv, name = nv.Hoten, role = role, chucvu = nv.Chucvu }
+                    user = new
+                    {
+                        id = nv.Manv,
+                        name = nv.Hoten,
+                        role = role,        // Role hệ thống (Admin, Manager, Staff)
+                        chucvu = nv.Chucvu  // Chức vụ hiển thị (Admin, Quản lý..., Nhân viên)
+                    }
                 });
             }
 
-            // 3. KHÔNG TÌM THẤY Ở CẢ 2 BẢNG
-            return Unauthorized(new { message = "Tài khoản/SĐT hoặc mật khẩu không đúng." });
+            return Unauthorized(new { message = "Tài khoản hoặc mật khẩu không đúng." });
         }
 
         // HÀM HELPER TẠO TOKEN (Đã tổng quát hóa)

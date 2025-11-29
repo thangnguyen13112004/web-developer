@@ -17,6 +17,12 @@ public partial class Khachhang
 
     public DateTime? Ngaytao { get; set; }
 
+    public DateOnly? NgaySinh { get; set; }
+
+    public string? GioiTinh { get; set; }
+
+    public string? AnhDaiDien { get; set; }
+
     public virtual ICollection<Donhang> Donhangs { get; set; } = new List<Donhang>();
 
     public virtual ICollection<Donthuoc> Donthuocs { get; set; } = new List<Donthuoc>();

@@ -55,6 +55,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pharmacity API", Version = "v1" });
+
+    // Cấu hình để Swagger hiển thị file upload
+    c.OperationFilter<FileUploadOperationFilter>();
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -81,6 +86,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Redis:
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379"; // Chuỗi kết nối Redis
+    options.InstanceName = "Pharmacity_";
+});
 
 
 var app = builder.Build();
