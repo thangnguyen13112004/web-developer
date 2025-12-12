@@ -5,6 +5,30 @@
     "version": "v1"
   },
   "paths": {
+    "/api/admin/neo4j/sync": {
+      "post": {
+        "tags": [
+          "AdminNeo4j"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/neo4j/clear": {
+      "delete": {
+        "tags": [
+          "AdminNeo4j"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/register": {
       "post": {
         "tags": [
@@ -417,6 +441,49 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/discount/apply": {
+      "post": {
+        "tags": [
+          "Discount"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscountRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscountRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscountRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/admin/discount/history": {
+      "get": {
+        "tags": [
+          "Discount"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -858,6 +925,44 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetailDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetailDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetailDto"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/admin/products": {
@@ -1062,6 +1167,127 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/admin/products/{id}/available-lots": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendation/personal/{userId}": {
+      "get": {
+        "tags": [
+          "Recommendation"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recommendation/cart-related": {
+      "post": {
+        "tags": [
+          "Recommendation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recommendation/trending": {
+      "get": {
+        "tags": [
+          "Recommendation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -1304,37 +1530,29 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Thuoc"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Thuoc"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Thuoc"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -1598,6 +1816,11 @@
           "soLuong": {
             "type": "integer",
             "format": "int32"
+          },
+          "maLo": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1665,6 +1888,42 @@
               "format": "int32"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChiTietKhuyenMai": {
+        "type": "object",
+        "properties": {
+          "maCtkm": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maDotKm": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "maThuoc": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "giaGoc": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "giaDaGiam": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "maDotKmNavigation": {
+            "$ref": "#/components/schemas/DotKhuyenMai"
+          },
+          "maThuocNavigation": {
+            "$ref": "#/components/schemas/Thuoc"
           }
         },
         "additionalProperties": false
@@ -2012,6 +2271,42 @@
         },
         "additionalProperties": false
       },
+      "DiscountRequestDto": {
+        "type": "object",
+        "properties": {
+          "tenDotKM": {
+            "type": "string",
+            "nullable": true
+          },
+          "loaiApDung": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "phanTramGiam": {
+            "type": "number",
+            "format": "double"
+          },
+          "ngayKetThuc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Dondathang": {
         "type": "object",
         "properties": {
@@ -2172,6 +2467,49 @@
           },
           "makhNavigation": {
             "$ref": "#/components/schemas/Khachhang"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DotKhuyenMai": {
+        "type": "object",
+        "properties": {
+          "maDotKm": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenDotKm": {
+            "type": "string",
+            "nullable": true
+          },
+          "loaiApDung": {
+            "type": "string",
+            "nullable": true
+          },
+          "giaTriGiam": {
+            "type": "number",
+            "format": "double"
+          },
+          "ngayBatDau": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ngayKetThuc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "trangThai": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "chiTietKhuyenMais": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChiTietKhuyenMai"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2646,6 +2984,106 @@
         },
         "additionalProperties": false
       },
+      "OrderDetailDto": {
+        "type": "object",
+        "properties": {
+          "maDH": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenKhachHang": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdt": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngayDat": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "trangThaiDH": {
+            "type": "string",
+            "nullable": true
+          },
+          "nguoiNhan": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdtNhan": {
+            "type": "string",
+            "nullable": true
+          },
+          "diaChiGiao": {
+            "type": "string",
+            "nullable": true
+          },
+          "phuongThucTT": {
+            "type": "string",
+            "nullable": true
+          },
+          "trangThaiTT": {
+            "type": "string",
+            "nullable": true
+          },
+          "tongTien": {
+            "type": "number",
+            "format": "double"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderItemDto": {
+        "type": "object",
+        "properties": {
+          "maThuoc": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenThuoc": {
+            "type": "string",
+            "nullable": true
+          },
+          "hinhAnh": {
+            "type": "string",
+            "nullable": true
+          },
+          "donViTinh": {
+            "type": "string",
+            "nullable": true
+          },
+          "soLuong": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "donGia": {
+            "type": "number",
+            "format": "double"
+          },
+          "thanhTien": {
+            "type": "number",
+            "format": "double"
+          },
+          "soLo": {
+            "type": "string",
+            "nullable": true
+          },
+          "hanSuDung": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "OrderReadDto": {
         "type": "object",
         "properties": {
@@ -2978,6 +3416,14 @@
           "tenNCC": {
             "type": "string",
             "nullable": true
+          },
+          "diaChi": {
+            "type": "string",
+            "nullable": true
+          },
+          "sdt": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3083,6 +3529,13 @@
           "giacu": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "chiTietKhuyenMais": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChiTietKhuyenMai"
+            },
             "nullable": true
           },
           "chitietdondathangs": {

@@ -94,83 +94,143 @@ namespace Pharmacity.Controllers
         [HttpPost]
         public async Task<ActionResult<IEnumerable<object>>> AddToCart(AddToCartDto dto)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                int makh = GetCurrentUserId();
-
-                // 1. Kiểm tra thuốc & Lô
-                var thuoc = await _context.Thuocs.FindAsync(dto.MaThuoc);
-                if (thuoc == null) return NotFound(new { message = "Không tìm thấy sản phẩm" });
-
-                // --- BỔ SUNG LOGIC NGHIỆP VỤ: KIỂM TRA TỒN KHO TỔNG ---
-                // Nếu số lượng tồn trong bảng Thuoc <= 0, báo ngay là "Sắp có"
-                if (thuoc.Soluongton <= 0)
+                try
                 {
-                    return BadRequest(new { message = "Sản phẩm hiện đang tạm hết hàng (Sắp có)." });
-                }
-                // -----------------------------------------------------
+                    int makh = GetCurrentUserId();
 
-                // Tìm lô còn hạn và còn hàng (Ưu tiên lô hết hạn trước - FEFO)
-                var lot = await _context.Lothuocs
-                    .Include(l => l.Tonkhos)
-                    .Where(l => l.Mathuoc == dto.MaThuoc && l.Hansudung > DateTime.Now)
-                    .OrderBy(l => l.Hansudung)
-                    .FirstOrDefaultAsync();
+                    // 1. Kiểm tra tổng tồn kho của thuốc
+                    var thuoc = await _context.Thuocs.FindAsync(dto.MaThuoc);
+                    if (thuoc == null) return NotFound(new { message = "Không tìm thấy sản phẩm" });
 
-                // Logic dự phòng: Nếu bảng Thuoc báo có tồn, mà tìm Lô không thấy (do lỗi dữ liệu)
-                if (lot == null)
-                {
-                    return BadRequest(new { message = "Sản phẩm đang được kiểm kê (Vui lòng quay lại sau)." });
-                }
+                    // Lấy tổng tồn thực tế từ bảng TonKho (chính xác hơn bảng Thuoc)
+                    var totalStock = await _context.Tonkhos
+                        .Include(tk => tk.MaloNavigation)
+                        .Where(tk => tk.MaloNavigation.Mathuoc == dto.MaThuoc && tk.MaloNavigation.Hansudung > DateTime.Now)
+                        .SumAsync(tk => tk.Soluongton);
 
-                // 2. Tìm hoặc tạo giỏ hàng
-                var cartHeader = await _context.Donhangs.FirstOrDefaultAsync(d => d.Makh == makh && d.Trangthai == "GioHang");
-                if (cartHeader == null)
-                {
-                    cartHeader = new Donhang
+                    if (totalStock < dto.SoLuong)
                     {
-                        // Lưu ý: Nên set Identity cho MaDH trong SQL để không cần Max+1
-                        Madh = (_context.Donhangs.Max(d => (int?)d.Madh) ?? 0) + 1,
-                        Makh = makh,
-                        Ngaydat = DateTime.Now,
-                        Trangthai = "GioHang",
-                        Tongtien = 0
-                    };
-                    _context.Donhangs.Add(cartHeader);
+                        return BadRequest(new { message = $"Sản phẩm chỉ còn {totalStock} {thuoc.Donvitinh} (Yêu cầu: {dto.SoLuong})" });
+                    }
+
+                    // 2. Tìm hoặc tạo giỏ hàng
+                    var cartHeader = await _context.Donhangs.FirstOrDefaultAsync(d => d.Makh == makh && d.Trangthai == "GioHang");
+                    if (cartHeader == null)
+                    {
+                        cartHeader = new Donhang
+                        {
+                            // Tốt nhất nên set Identity trong SQL, ở đây giữ logic cũ của bạn
+                            Madh = (_context.Donhangs.Max(d => (int?)d.Madh) ?? 0) + 1,
+                            Makh = makh,
+                            Ngaydat = DateTime.Now,
+                            Trangthai = "GioHang",
+                            Tongtien = 0
+                        };
+                        _context.Donhangs.Add(cartHeader);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    // =================================================================================
+                    // TRƯỜNG HỢP 1: NHÂN VIÊN CHỌN LÔ CỤ THỂ (dto.MaLo có giá trị)
+                    // =================================================================================
+                    if (dto.MaLo.HasValue)
+                    {
+                        // Tìm đúng cái lô đó trong kho
+                        var specificLot = await _context.Tonkhos
+                            .Include(tk => tk.MaloNavigation)
+                            .FirstOrDefaultAsync(tk => tk.Malo == dto.MaLo && tk.MaloNavigation.Mathuoc == dto.MaThuoc);
+
+                        // Kiểm tra lô có tồn tại và đủ hàng không
+                        if (specificLot == null)
+                            return BadRequest(new { message = "Lô thuốc không tồn tại trong kho này." });
+
+                        if (specificLot.Soluongton < dto.SoLuong)
+                            return BadRequest(new { message = $"Lô {specificLot.MaloNavigation.Solo} chỉ còn {specificLot.Soluongton} (Yêu cầu: {dto.SoLuong})" });
+
+                        // Thêm vào giỏ
+                        var cartItem = await _context.Chitietdonhangs
+                            .FirstOrDefaultAsync(cd => cd.Madh == cartHeader.Madh && cd.Malo == dto.MaLo);
+
+                        if (cartItem != null)
+                        {
+                            cartItem.Soluong += dto.SoLuong;
+                        }
+                        else
+                        {
+                            _context.Chitietdonhangs.Add(new Chitietdonhang
+                            {
+                                Madh = cartHeader.Madh,
+                                Malo = dto.MaLo.Value,
+                                Soluong = dto.SoLuong,
+                                Dongia = thuoc.Giaban
+                            });
+                        }
+                    }
+
+                    // =================================================================================
+                    // TRƯỜNG HỢP 2: KHÁCH HÀNG / TỰ ĐỘNG (FEFO - Hết hạn trước xuất trước)
+                    // =================================================================================
+                    else
+                    {
+                        // Lấy danh sách lô (sắp xếp Hạn sử dụng tăng dần)
+                        var availableLots = await _context.Tonkhos
+                            .Include(tk => tk.MaloNavigation)
+                            .Where(tk => tk.MaloNavigation.Mathuoc == dto.MaThuoc
+                                         && tk.MaloNavigation.Hansudung > DateTime.Now
+                                         && tk.Soluongton > 0)
+                            .OrderBy(tk => tk.MaloNavigation.Hansudung) // Quan trọng: Date gần bán trước
+                            .ToListAsync();
+
+                        int remainingQtyNeeded = dto.SoLuong;
+
+                        foreach (var lotInfo in availableLots)
+                        {
+                            if (remainingQtyNeeded <= 0) break;
+
+                            // Lấy số lượng thực tế có thể bán từ lô này
+                            // (Lưu ý: Logic này chưa tính số lượng ĐANG nằm trong giỏ nhưng chưa thanh toán của người khác
+                            // để đơn giản hóa. Nếu cần chặt chẽ, phải trừ đi số lượng đang hold trong các giỏ hàng khác)
+                            int availableInLot = lotInfo.Soluongton;
+
+                            int qtyToTake = Math.Min(remainingQtyNeeded, availableInLot);
+
+                            if (qtyToTake > 0)
+                            {
+                                var existingCartItem = await _context.Chitietdonhangs
+                                    .FirstOrDefaultAsync(cd => cd.Madh == cartHeader.Madh && cd.Malo == lotInfo.Malo);
+
+                                if (existingCartItem != null)
+                                {
+                                    existingCartItem.Soluong += qtyToTake;
+                                }
+                                else
+                                {
+                                    _context.Chitietdonhangs.Add(new Chitietdonhang
+                                    {
+                                        Madh = cartHeader.Madh,
+                                        Malo = lotInfo.Malo,
+                                        Soluong = qtyToTake,
+                                        Dongia = thuoc.Giaban
+                                    });
+                                }
+                                remainingQtyNeeded -= qtyToTake;
+                            }
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
+                    await UpdateCartTotal(cartHeader.Madh);
+                    await transaction.CommitAsync();
+
+                    return await GetCart();
                 }
-
-                // 3. Thêm/Cập nhật sản phẩm vào giỏ
-                var cartItem = await _context.Chitietdonhangs
-                    .FirstOrDefaultAsync(cd => cd.Madh == cartHeader.Madh && cd.Malo == lot.Malo);
-
-                if (cartItem != null)
+                catch (Exception ex)
                 {
-                    cartItem.Soluong += dto.SoLuong;
-                    // --- SỬA LỖI 2: KHÔNG GÁN THANHTIEN VÌ LÀ CỘT COMPUTED ---
-                    // cartItem.Thanhtien = ... (Bỏ dòng này)
+                    await transaction.RollbackAsync();
+                    return StatusCode(500, new { message = ex.Message });
                 }
-                else
-                {
-                    cartItem = new Chitietdonhang
-                    {
-                        Madh = cartHeader.Madh,
-                        Malo = lot.Malo,
-                        Soluong = dto.SoLuong,
-                        Dongia = thuoc.Giaban
-                        // --- SỬA LỖI 2: KHÔNG GÁN THANHTIEN ---
-                    };
-                    _context.Chitietdonhangs.Add(cartItem);
-                }
-
-                await _context.SaveChangesAsync();
-                await UpdateCartTotal(cartHeader.Madh); // Cập nhật tổng tiền header
-
-                return await GetCart(); // Trả về giỏ hàng mới nhất
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = ex.Message });
             }
         }
 

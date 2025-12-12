@@ -4,6 +4,7 @@ using Pharmacity.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Pharmacity.DTOs;
+using Neo4j.Driver; // 1. Thêm thư viện Neo4j
 
 namespace Pharmacity.Controllers
 {
@@ -12,10 +13,12 @@ namespace Pharmacity.Controllers
     public class DatHangController : ControllerBase
     {
         private readonly DB_QuanLyNhaThuoc2Context _context;
+        private readonly IDriver _driver; // 2. Inject Driver Neo4j
 
-        public DatHangController(DB_QuanLyNhaThuoc2Context context)
+        public DatHangController(DB_QuanLyNhaThuoc2Context context, IDriver driver)
         {
             _context = context;
+            _driver = driver; 
         }
 
         private int GetCurrentUserId()
@@ -25,7 +28,6 @@ namespace Pharmacity.Controllers
             return int.Parse(claim.Value);
         }
 
-        [HttpPost]
         [HttpPost]
         public async Task<IActionResult> Checkout([FromBody] CheckoutDto model)
         {
@@ -151,6 +153,20 @@ namespace Pharmacity.Controllers
                     }
 
                     await _context.SaveChangesAsync();
+                    // -----------------------------------------------------------
+                    // BẮT ĐẦU ĐOẠN CODE TỰ ĐỘNG ĐỒNG BỘ NEO4J (REAL-TIME)
+                    // -----------------------------------------------------------
+
+                    // Lấy thông tin User
+                    var user = await _context.Khachhangs.FindAsync(userId);
+                    string userName = user != null ? user.Hoten : "Unknown";
+
+                    // Mở session Neo4j (Không await session để tránh block response lâu, hoặc await nếu muốn đảm bảo)
+                    await SyncOrderToNeo4j(userId, userName, finalOrder);
+
+                    // -----------------------------------------------------------
+                    // KẾT THÚC ĐỒNG BỘ
+                    // -----------------------------------------------------------
                     await transaction.CommitAsync();
 
                     return Ok(new { message = "Đặt hàng thành công!", orderId = finalOrder.Madh });
@@ -160,6 +176,65 @@ namespace Pharmacity.Controllers
                     await transaction.RollbackAsync();
                     return StatusCode(500, new { message = "Lỗi: " + ex.Message });
                 }
+            }
+        }
+        // Hàm phụ trợ để ghi vào Neo4j
+
+        private async Task SyncOrderToNeo4j(int userId, string userName, Donhang order)
+        {
+            using var session = _driver.AsyncSession();
+
+            try
+            {
+                // 1. Lấy dữ liệu chi tiết kèm Include đầy đủ để tránh NullReference
+                var items = await _context.Chitietdonhangs
+                                    .Where(ct => ct.Madh == order.Madh)
+                                    .Include(ct => ct.MaloNavigation)       // Include Lô
+                                    .ThenInclude(l => l.MathuocNavigation)  // Include Thuốc từ Lô
+                                    .ToListAsync();
+
+                if (!items.Any()) return;
+
+                foreach (var item in items)
+                {
+                    // Kiểm tra null để tránh lỗi 500 "Object reference..."
+                    if (item.MaloNavigation == null || item.MaloNavigation.MathuocNavigation == null)
+                    {
+                        continue; // Bỏ qua item lỗi
+                    }
+
+                    var product = item.MaloNavigation.MathuocNavigation;
+
+                    // 2. Query gộp: Đảm bảo CẢ User VÀ Product đều tồn tại rồi mới tạo quan hệ
+                    // Sử dụng MERGE cho User ở đây luôn để chắc chắn nó có mặt
+                    var query = @"
+                MERGE (u:User {id: $uid})
+                ON CREATE SET u.name = $uname
+                
+                MERGE (p:Product {id: $pid})
+                ON CREATE SET p.name = $pname, p.category = $pcat
+                
+                MERGE (u)-[r:BOUGHT]->(p)
+                ON CREATE SET r.orderId = $oid, r.qty = $qty, r.date = datetime($dateStr)
+                ON MATCH SET r.qty = r.qty + $qty, r.date = datetime($dateStr)
+            ";
+
+                    await session.RunAsync(query, new
+                    {
+                        uid = userId,
+                        uname = userName,
+                        pid = product.Mathuoc,
+                        pname = product.Tenthuoc,
+                        pcat = product.Maloai ?? 0, // Handle null category
+                        oid = order.Madh,
+                        qty = item.Soluong,
+                        dateStr = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss") // Format ISO 8601 cho Neo4j
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Neo4j Sync Error: {ex.Message} - {ex.StackTrace}");
             }
         }
     }

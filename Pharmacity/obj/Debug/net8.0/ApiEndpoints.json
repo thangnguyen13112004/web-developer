@@ -104,6 +104,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Pharmacity.Controllers.Admin.DiscountController",
+    "Method": "ApplyDiscount",
+    "RelativePath": "api/admin/discount/apply",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Pharmacity.DTOs.Admin.DiscountRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.Admin.DiscountController",
+    "Method": "GetHistory",
+    "RelativePath": "api/admin/discount/history",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Pharmacity.Controllers.Admin.EmployeesController",
     "Method": "GetAll",
     "RelativePath": "api/admin/employees",
@@ -172,6 +198,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Pharmacity.Controllers.Admin.AdminNeo4jController",
+    "Method": "ClearNeo4j",
+    "RelativePath": "api/admin/neo4j/clear",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.Admin.AdminNeo4jController",
+    "Method": "SyncAllData",
+    "RelativePath": "api/admin/neo4j/sync",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Pharmacity.Controllers.Admin.OrdersController",
     "Method": "GetAllOrders",
     "RelativePath": "api/admin/orders",
@@ -206,6 +252,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.Admin.OrdersController",
+    "Method": "GetOrderDetail",
+    "RelativePath": "api/admin/orders/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Pharmacity.DTOs.Admin.OrderDetailDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Pharmacity.Controllers.Admin.OrdersController",
@@ -326,6 +398,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.Admin.ProductsController",
+    "Method": "GetAvailableLots",
+    "RelativePath": "api/admin/products/{id}/available-lots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Pharmacity.Controllers.Admin.ProductsController",
@@ -761,6 +859,48 @@
     ]
   },
   {
+    "ContainingType": "Pharmacity.Controllers.RecommendationController",
+    "Method": "GetCartRecommendations",
+    "RelativePath": "api/recommendation/cart-related",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartProductIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.RecommendationController",
+    "Method": "GetPersonalRecommendations",
+    "RelativePath": "api/recommendation/personal/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pharmacity.Controllers.RecommendationController",
+    "Method": "GetTrendingProducts",
+    "RelativePath": "api/recommendation/trending",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Pharmacity.Controllers.SoDiaChiController",
     "Method": "GetDiaChis",
     "RelativePath": "api/SoDiaChi",
@@ -901,19 +1041,19 @@
         "Name": "priceSort",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Pharmacity.Models.Thuoc, Pharmacity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Pharmacity.Controllers.ThuocController",

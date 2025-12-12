@@ -17,6 +17,8 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
 
     public virtual DbSet<Baocao> Baocaos { get; set; }
 
+    public virtual DbSet<ChiTietKhuyenMai> ChiTietKhuyenMais { get; set; }
+
     public virtual DbSet<Chitietdondathang> Chitietdondathangs { get; set; }
 
     public virtual DbSet<Chitietdonhang> Chitietdonhangs { get; set; }
@@ -30,6 +32,8 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
     public virtual DbSet<Donhang> Donhangs { get; set; }
 
     public virtual DbSet<Donthuoc> Donthuocs { get; set; }
+
+    public virtual DbSet<DotKhuyenMai> DotKhuyenMais { get; set; }
 
     public virtual DbSet<Khachhang> Khachhangs { get; set; }
 
@@ -86,6 +90,24 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
             entity.HasOne(d => d.ManvNavigation).WithMany(p => p.Baocaos)
                 .HasForeignKey(d => d.Manv)
                 .HasConstraintName("FK__baocao__manv__10566F31");
+        });
+
+        modelBuilder.Entity<ChiTietKhuyenMai>(entity =>
+        {
+            entity.HasKey(e => e.MaCtkm).HasName("PK__ChiTietK__1E4E09D089009D82");
+
+            entity.ToTable("ChiTietKhuyenMai");
+
+            entity.Property(e => e.MaCtkm).HasColumnName("MaCTKM");
+            entity.Property(e => e.MaDotKm).HasColumnName("MaDotKM");
+
+            entity.HasOne(d => d.MaDotKmNavigation).WithMany(p => p.ChiTietKhuyenMais)
+                .HasForeignKey(d => d.MaDotKm)
+                .HasConstraintName("FK__ChiTietKh__MaDot__793DFFAF");
+
+            entity.HasOne(d => d.MaThuocNavigation).WithMany(p => p.ChiTietKhuyenMais)
+                .HasForeignKey(d => d.MaThuoc)
+                .HasConstraintName("FK__ChiTietKh__MaThu__7A3223E8");
         });
 
         modelBuilder.Entity<Chitietdondathang>(entity =>
@@ -294,6 +316,24 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
                 .HasConstraintName("FK__donthuoc__makh__5BE2A6F2");
         });
 
+        modelBuilder.Entity<DotKhuyenMai>(entity =>
+        {
+            entity.HasKey(e => e.MaDotKm).HasName("PK__DotKhuye__C3162DCFB48D0A7F");
+
+            entity.ToTable("DotKhuyenMai");
+
+            entity.Property(e => e.MaDotKm).HasColumnName("MaDotKM");
+            entity.Property(e => e.LoaiApDung).HasMaxLength(50);
+            entity.Property(e => e.NgayBatDau)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.NgayKetThuc).HasColumnType("datetime");
+            entity.Property(e => e.TenDotKm)
+                .HasMaxLength(200)
+                .HasColumnName("TenDotKM");
+            entity.Property(e => e.TrangThai).HasDefaultValue(true);
+        });
+
         modelBuilder.Entity<Khachhang>(entity =>
         {
             entity.HasKey(e => e.Makh).HasName("PK__khachhan__7A21BB4C868A1C52");
@@ -358,7 +398,7 @@ public partial class DB_QuanLyNhaThuoc2Context : DbContext
         {
             entity.HasKey(e => e.Malo).HasName("PK__lothuoc__7A21A3246FAC0A37");
 
-            entity.ToTable("lothuoc", tb => tb.HasTrigger("trg_AfterInsert_LoThuoc"));
+            entity.ToTable("lothuoc");
 
             entity.HasIndex(e => new { e.Mathuoc, e.Solo }, "uq_lothuoc_solo").IsUnique();
 

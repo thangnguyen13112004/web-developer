@@ -27,7 +27,10 @@ namespace Pharmacity.Controllers.Admin
                 .Select(n => new SupplierDto
                 {
                     MaNCC = n.Mancc,
-                    TenNCC = n.Tenncc
+                    TenNCC = n.Tenncc,
+                    // --- BỔ SUNG LẤY DỮ LIỆU ---
+                    DiaChi = n.Diachi,
+                    SDT = n.Sdt
                 })
                 .ToListAsync();
             return Ok(sups);

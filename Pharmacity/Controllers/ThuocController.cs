@@ -19,55 +19,60 @@ namespace Pharmacity.Controllers
         // GET: api/Thuoc
         // API này lấy danh sách sản phẩm, có hỗ trợ lọc và sắp xếp
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Thuoc>>> GetThuocs(
-            [FromQuery] int? maloai,      // Lọc theo loại (từ sidebar)
-            [FromQuery] string? sortBy,   // Sắp xếp (moi-nhat, ban-chay...)
-            [FromQuery] string? priceSort // Sắp xếp giá (thap-den-cao, cao-den-thap)
+        public async Task<IActionResult> GetThuocs(
+            [FromQuery] int? maloai,
+            [FromQuery] string? sortBy,
+            [FromQuery] string? priceSort,
+            [FromQuery] int page = 1,     // Mặc định trang 1
+            [FromQuery] int pageSize = 10 // Mặc định 10 sản phẩm/trang
         )
         {
-            // Bắt đầu 1 câu query, chưa thực thi
             var query = _context.Thuocs.AsQueryable();
 
-            // 1. Lọc theo danh mục (nếu có)
+            // 1. Lọc theo danh mục
             if (maloai.HasValue)
             {
                 query = query.Where(t => t.Maloai == maloai.Value);
             }
 
-            // 2. Sắp xếp theo giá (ưu tiên)
+            // 2. Sắp xếp (Logic giữ nguyên)
             if (!string.IsNullOrEmpty(priceSort))
             {
-                if (priceSort == "thap-den-cao")
-                {
-                    query = query.OrderBy(t => t.Giaban);
-                }
-                else if (priceSort == "cao-den-thap")
-                {
-                    query = query.OrderByDescending(t => t.Giaban);
-                }
+                if (priceSort == "thap-den-cao") query = query.OrderBy(t => t.Giaban);
+                else if (priceSort == "cao-den-thap") query = query.OrderByDescending(t => t.Giaban);
             }
             else
             {
-                // 3. Sắp xếp mặc định (nếu không sắp xếp theo giá)
                 switch (sortBy)
                 {
-                    case "ban-chay":
-                        // (Nâng cao): Bạn sẽ cần join với bảng Chitietdonhang
-                        // Tạm thời, chúng ta sắp xếp theo số lượng tồn kho (giả định)
-                        query = query.OrderBy(t => t.Soluongton);
-                        break;
-
+                    case "ban-chay": query = query.OrderBy(t => t.Soluongton); break;
                     case "moi-nhat":
-                    default:
-                        // Sắp xếp theo mathuoc giảm dần (giả định ID cao là mới nhất)
-                        query = query.OrderByDescending(t => t.Mathuoc);
-                        break;
+                    default: query = query.OrderByDescending(t => t.Mathuoc); break;
                 }
             }
 
-            // Thực thi câu query và trả về kết quả
-            var thuocs = await query.ToListAsync();
-            return Ok(thuocs);
+            // 3. PHÂN TRANG (QUAN TRỌNG)
+            // Tính tổng số lượng bản ghi trước khi cắt trang
+            int totalItems = await query.CountAsync();
+
+            // Tính tổng số trang
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            // Lấy dữ liệu trang hiện tại (Skip & Take)
+            var data = await query
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+
+            // Trả về Object chứa cả dữ liệu và thông tin phân trang
+            return Ok(new
+            {
+                data = data,
+                totalItems = totalItems,
+                totalPages = totalPages,
+                currentPage = page,
+                pageSize = pageSize
+            });
         }
 
         // GET: api/Thuoc/5

@@ -25,5 +25,9 @@
     {
         public int MaNCC { get; set; }
         public string TenNCC { get; set; }
+
+        // --- THÊM 2 TRƯỜNG NÀY ---
+        public string DiaChi { get; set; }
+        public string SDT { get; set; }
     }
 }

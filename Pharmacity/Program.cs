@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens; // <-- Thêm
 using Microsoft.OpenApi.Models;
 using Pharmacity.Models;
 using System.Text; // <-- Thêm
+using Neo4j.Driver; // Thêm dòng này
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +93,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = "localhost:6379"; // Chuỗi kết nối Redis
     options.InstanceName = "Pharmacity_";
 });
+
+// 1. Cấu hình Neo4j (Singleton)
+builder.Services.AddSingleton(GraphDatabase.Driver(
+    "bolt://localhost:7687",
+    AuthTokens.Basic("neo4j", "12345678")
+));
 
 
 var app = builder.Build();

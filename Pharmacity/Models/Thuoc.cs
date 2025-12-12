@@ -35,6 +35,8 @@ public partial class Thuoc
 
     public double? Giacu { get; set; }
 
+    public virtual ICollection<ChiTietKhuyenMai> ChiTietKhuyenMais { get; set; } = new List<ChiTietKhuyenMai>();
+
     public virtual ICollection<Chitietdondathang> Chitietdondathangs { get; set; } = new List<Chitietdondathang>();
 
     public virtual ICollection<Chitietdonthuoc> Chitietdonthuocs { get; set; } = new List<Chitietdonthuoc>();

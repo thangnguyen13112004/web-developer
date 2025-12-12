@@ -182,5 +182,61 @@ namespace Pharmacity.Controllers.Admin
                 }
             }
         }
+
+        // 3. XEM CHI TIẾT ĐƠN HÀNG (MỚI)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderDetailDto>> GetOrderDetail(int id)
+        {
+            var order = await _context.Donhangs
+                .Include(d => d.MakhNavigation) // Khách hàng
+                .Include(d => d.Thanhtoans)     // Thanh toán
+                .Include(d => d.Chitietdonhangs) // Chi tiết SP
+                    .ThenInclude(ct => ct.MaloNavigation) // Lô
+                        .ThenInclude(l => l.MathuocNavigation) // Thuốc
+                .FirstOrDefaultAsync(d => d.Madh == id);
+
+            if (order == null) return NotFound(new { message = "Không tìm thấy đơn hàng" });
+
+            // Lấy thông tin địa chỉ (Giả sử bạn lưu Madc, nếu không có quan hệ trực tiếp thì tìm thủ công)
+            var address = await _context.SoDiaChis.FindAsync(order.Madc);
+            var payment = order.Thanhtoans.OrderByDescending(t => t.Ngaytt).FirstOrDefault();
+
+            var result = new OrderDetailDto
+            {
+                MaDH = order.Madh,
+                TenKhachHang = order.MakhNavigation.Hoten,
+                SDT = order.MakhNavigation.Sdt,
+                NgayDat = order.Ngaydat ?? DateTime.Now,
+                TrangThaiDH = order.Trangthai,
+
+                // Thông tin giao hàng
+                NguoiNhan = address != null ? address.HotenNhan : order.MakhNavigation.Hoten,
+                SDTNhan = address != null ? address.SdtNhan : order.MakhNavigation.Sdt,
+                DiaChiGiao = address != null
+                    ? $"{address.SonhaDuong}, {address.Phuongxa}, {address.Quanhuyen}, {address.Tinhthanh}"
+                    : "Địa chỉ đã bị xóa hoặc mua tại quầy",
+
+                // Thông tin thanh toán
+                PhuongThucTT = payment != null ? payment.Phuongthuc : "Chưa xác định",
+                TrangThaiTT = payment != null ? payment.Trangthai : "Chưa thanh toán",
+                TongTien = order.Tongtien,
+
+                // Danh sách sản phẩm
+                Items = order.Chitietdonhangs.Select(item => new OrderItemDto
+                {
+                    MaThuoc = item.MaloNavigation.Mathuoc,
+                    TenThuoc = item.MaloNavigation.MathuocNavigation.Tenthuoc,
+                    HinhAnh = item.MaloNavigation.MathuocNavigation.Hinhanh,
+                    DonViTinh = item.MaloNavigation.MathuocNavigation.Donvitinh,
+                    SoLuong = item.Soluong,
+                    DonGia = item.Dongia,
+                    ThanhTien = item.Dongia * item.Soluong,
+                    SoLo = item.MaloNavigation.Solo,
+                    HanSuDung = item.MaloNavigation.Hansudung
+                }).ToList()
+            };
+
+            return Ok(result);
+        }
     }
 }

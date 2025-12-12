@@ -222,5 +222,28 @@ namespace Pharmacity.Controllers.Admin
 
             return Ok(categories);
         }
+
+        // GET: api/admin/products/{id}/available-lots
+        // Lấy danh sách lô còn tồn kho của 1 thuốc (để nhân viên chọn bán)
+        [HttpGet("{id}/available-lots")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetAvailableLots(int id)
+        {
+            var lots = await _context.Tonkhos
+                .Include(tk => tk.MaloNavigation) // Join bảng Lô
+                .Where(tk => tk.MaloNavigation.Mathuoc == id
+                             && tk.Soluongton > 0
+                             && tk.MaloNavigation.Hansudung > DateTime.Now) // Chỉ lấy lô còn hạn và còn hàng
+                .Select(tk => new
+                {
+                    MaLo = tk.Malo,
+                    SoLo = tk.MaloNavigation.Solo,
+                    HanSuDung = tk.MaloNavigation.Hansudung,
+                    SoLuongTon = tk.Soluongton
+                })
+                .OrderBy(x => x.HanSuDung) // Sắp xếp FEFO để gợi ý lô cũ nhất trước
+                .ToListAsync();
+
+            return Ok(lots);
+        }
     }
 }
