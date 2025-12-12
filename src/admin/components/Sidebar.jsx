@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
-    LayoutDashboard, Package, ShoppingCart, Users, FileText, Settings, LogOut, Pill, Warehouse, Database
+    LayoutDashboard, Package, ShoppingCart, Users, FileText, Settings, LogOut, Pill, Warehouse, Database, Tag
 } from 'lucide-react';
 
 const AdminSidebar = () => {
@@ -19,6 +19,13 @@ const AdminSidebar = () => {
     const allMenuItems = [
         { path: '/admin', icon: <LayoutDashboard size={20} />, label: 'Tổng quan', roles: ['Admin', 'Manager', 'Staff'] },
         { path: '/admin/products', icon: <Pill size={20} />, label: 'Quản lý Thuốc', roles: ['Admin', 'Manager', 'Staff'] },
+        // Thêm vào mảng allMenuItems
+        { 
+            path: '/admin/marketing/discounts', 
+            icon: <Tag size={20} />, // Nhớ import Tag từ lucide-react
+            label: 'Khuyến mãi', 
+            roles: ['Admin', 'Manager'] 
+        },
         { path: '/admin/warehouse/lots', icon: <Package size={20} />, label: 'Quản lý Lô', roles: ['Admin', 'Manager'] }, // Staff không xem lô
         { path: '/admin/warehouse/import', icon: <Warehouse size={20} />, label: 'Nhập Kho', roles: ['Admin', 'Manager'] },
         { 
@@ -37,6 +44,16 @@ const AdminSidebar = () => {
             label: 'Sao lưu & Phục hồi', 
             roles: ['Admin'] // Chỉ Admin mới được quyền đụng vào DB
         },
+
+        // // --- SỬA ĐOẠN NÀY: THÊM DƯỚI DẠNG OBJECT ---
+        // { 
+        //     path: '/admin/pos', 
+        //     icon: <ShoppingCart size={20} />, 
+        //     label: 'Bán hàng (POS)', 
+        //     roles: ['Admin', 'Manager', 'Staff'] // Cho phép nhân viên thấy
+        // }
+
+        
     ];
 
     // Lọc menu dựa trên Role hiện tại

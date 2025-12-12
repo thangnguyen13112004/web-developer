@@ -4,6 +4,7 @@ import { Routes, Route, useLocation, useNavigate, Outlet, Link } from 'react-rou
 import './base.css';
 import './main.css';
 import "./Chatbox.css";
+// import EmployeePOS from './pages/admin/EmployeePOS';
 
 
 import Header from './components/Header.jsx';
@@ -33,6 +34,7 @@ import UserLayout from './layouts/UserLayout.jsx'; // Import Layout vừa tạo
 import ImportList from './admin/Import/ImportList.jsx';
 import EmployeeList from './admin/components/EmployeeList.jsx';
 import BackupRestore from './admin/configuration/BackupRestore.jsx';
+import DiscountManager from './admin/marketing/DiscountManager.jsx';
 
 
 // HÀM HELPER ĐỂ LẤY TOKEN
@@ -238,6 +240,7 @@ function App() {
                     selectedCategory={selectedCategory}
                     onCategoryChange={setSelectedCategory}
                     onAddToCart={handleAddToCart}
+                    currentUser={currentUser}
                 />
             } />
             
@@ -313,10 +316,8 @@ function App() {
 
                 <Route path="configuration/backup" element={<BackupRestore />} />
 
-                
-                
-                {/* Bạn có thể thêm các route admin khác ở đây */}
-                {/* <Route path="categories" element={<CategoryList />} /> */}
+                <Route path="marketing/discounts" element={<DiscountManager />} />
+
             </Route>
 
         </Routes>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import RecommendationList from './RecommendationList.jsx';
 
 // Hàm định dạng tiền tệ
 const formatPrice = (price) => {
@@ -201,6 +202,17 @@ function GioHang({ cart, onUpdateQuantity, onRemoveItem }) {
                             </div>
                         </div>
                     </div>
+
+                    {/* --- QUESTION 2: THƯỜNG MUA CÙNG (Đặt dưới giỏ hàng) --- */}
+                    {cart.length > 0 && (
+                        <RecommendationList 
+                            title="Thường được mua cùng các sản phẩm trong giỏ" 
+                            type="cart" 
+                            cartItems={cart} 
+                            // Thêm prop này nếu bạn muốn nút Mua ở mục gợi ý hoạt động
+                            onAddToCart={(product) => console.log("Thêm vào giỏ:", product)} 
+                        />
+                    )}
                 </div>
             </div>
         </div>

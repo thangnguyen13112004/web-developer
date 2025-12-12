@@ -34,6 +34,40 @@ const ProductDetail = ({ onAddToCart }) => {
         alert("Đã thêm vào giỏ hàng!");
     };
 
+    // 1. Hàm nhập tay
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        if (val === '') {
+            setQuantity('');
+            return;
+        }
+        const numVal = parseInt(val, 10);
+        if (!isNaN(numVal)) {
+            if (product.soluongton && numVal > product.soluongton) {
+                setQuantity(product.soluongton);
+            } else {
+                setQuantity(numVal);
+            }
+        }
+    };
+
+    const handleBlur = () => {
+        if (quantity === '' || quantity < 1) {
+            setQuantity(1);
+        }
+    };
+
+    // 2. Hàm cộng trừ
+    const updateQuantity = (amount) => {
+        setQuantity(prev => {
+            const current = prev === '' ? 0 : prev;
+            const newVal = current + amount;
+            if (newVal < 1) return 1;
+            if (product.soluongton && newVal > product.soluongton) return product.soluongton;
+            return newVal;
+        });
+    };
+
     const handleBuyNow = async () => {
         if (isOutOfStock) return;
         
@@ -124,23 +158,28 @@ const ProductDetail = ({ onAddToCart }) => {
                         <span style={{fontWeight: 'bold', display: 'block', marginBottom: '5px'}}>Số lượng:</span>
                         <div style={{display: 'flex', alignItems: 'center'}}>
                             <button 
-                                onClick={() => setQuantity(q => Math.max(1, q - 1))} 
+                                onClick={() => updateQuantity(-1)} // Gọi hàm mới
                                 className="btn_css" 
                                 style={{width: '35px', height: '35px', padding: 0}}
                                 disabled={isOutOfStock}
                             >-</button>
+                            
                             <input 
-                                type="text" 
+                                type="number" 
                                 value={quantity} 
-                                readOnly 
+                                onChange={handleInputChange} // Thêm onChange
+                                onBlur={handleBlur}          // Thêm onBlur
                                 style={{width: '50px', height: '35px', textAlign: 'center', border: '1px solid #ddd', margin: '0 5px'}} 
+                                disabled={isOutOfStock}
                             />
+                            
                             <button 
-                                onClick={() => setQuantity(q => q + 1)} 
+                                onClick={() => updateQuantity(1)} // Gọi hàm mới
                                 className="btn_css" 
                                 style={{width: '35px', height: '35px', padding: 0}}
                                 disabled={isOutOfStock}
                             >+</button>
+                            
                             <span style={{marginLeft: '15px', fontSize: '13px', color: isOutOfStock ? 'red' : 'green'}}>
                                 {isOutOfStock ? '(Hết hàng)' : `(Còn ${product.soluongton} sản phẩm)`}
                             </span>

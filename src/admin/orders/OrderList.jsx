@@ -4,11 +4,16 @@ import {
     CheckCircle, Truck, Package, XCircle, Clock, CreditCard, Trash2
 } from 'lucide-react';
 
+// 1. Import Modal
+import OrderDetailModal from './OrderDetailModal';
+
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
     const [filterStatus, setFilterStatus] = useState('Tất cả');
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
+    // 2. Thêm state quản lý modal
+    const [selectedOrderId, setSelectedOrderId] = useState(null);
 
     // Hàm xóa đơn hàng
     const handleDeleteOrder = async (id) => {
@@ -220,7 +225,10 @@ const OrderList = () => {
                                             {/* Dropdown Menu Thao tác nhanh */}
                                             <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg hidden group-hover:block z-50 text-left">
                                                 <div className="py-1">
-                                                    <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
+                                                    <button 
+                                                        onClick={() => setSelectedOrderId(order.maDH)} // <--- THÊM SỰ KIỆN NÀY
+                                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                                    >
                                                         <Eye size={14}/> Xem chi tiết
                                                     </button>
                                                     <div className="border-t my-1"></div>
@@ -260,6 +268,14 @@ const OrderList = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* 4. Render Modal ở cuối file (ngoài bảng) */}
+            {selectedOrderId && (
+                <OrderDetailModal 
+                    orderId={selectedOrderId} 
+                    onClose={() => setSelectedOrderId(null)} 
+                />
+            )}
         </div>
     );
 };

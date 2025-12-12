@@ -34,7 +34,26 @@ const Chatbox = () => {
                 body: JSON.stringify({ message: userMsg.text })
             });
             const data = await response.json();
-            setMessages(prev => [...prev, { text: data.answer, sender: "bot", type: "text" }]);
+
+            // --- ĐOẠN ĐÃ SỬA ---
+            if (data.type === 'product') {
+                // Nếu Server trả về sản phẩm -> Gán type='product' và kèm dữ liệu sản phẩm
+                setMessages(prev => [...prev, { 
+                    text: data.answer, 
+                    sender: "bot", 
+                    type: "product", 
+                    product: data.product 
+                }]);
+            } else {
+                // Nếu là tin nhắn thường
+                setMessages(prev => [...prev, { 
+                    text: data.answer, 
+                    sender: "bot", 
+                    type: "text" 
+                }]);
+            }
+            // -------------------
+
         } catch (error) {
             console.error("Lỗi API:", error);
             setMessages(prev => [...prev, { text: "Lỗi kết nối AI.", sender: "bot", type: "text" }]);

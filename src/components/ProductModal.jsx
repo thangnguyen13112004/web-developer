@@ -41,8 +41,46 @@ function ProductModal({ selectedProductId, onAddToCart }) {
         }
     }, [selectedProductId]);
 
-    const handleQuantityChange = (amount) => {
-        setQuantity(prevQty => (prevQty + amount < 1 ? 1 : prevQty + amount));
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        
+        // Cho phép để trống tạm thời khi đang xóa số (để gõ số mới)
+        if (val === '') {
+            setQuantity(''); 
+            return;
+        }
+
+        // Chỉ nhận số nguyên
+        const numVal = parseInt(val, 10);
+        if (!isNaN(numVal)) {
+            // Kiểm tra tồn kho (nếu có thông tin tồn kho)
+            if (product.soluongton && numVal > product.soluongton) {
+                setQuantity(product.soluongton); // Set về max
+            } else {
+                setQuantity(numVal);
+            }
+        }
+    };
+
+    // 2. Xử lý khi input bị mất focus (onBlur) -> Chống để trống hoặc số 0
+    const handleBlur = () => {
+        if (quantity === '' || quantity < 1) {
+            setQuantity(1);
+        }
+    };
+
+    // 3. Hàm cộng trừ cũ (Sửa lại chút để check max)
+    const handleButtonChange = (amount) => {
+        setQuantity(prev => {
+            // Nếu đang rỗng thì coi là 0
+            const current = prev === '' ? 0 : prev;
+            const newVal = current + amount;
+            
+            if (newVal < 1) return 1;
+            if (product.soluongton && newVal > product.soluongton) return product.soluongton;
+            
+            return newVal;
+        });
     };
 
     // --- LOGIC MỚI: KIỂM TRA TỒN KHO ---
@@ -176,15 +214,26 @@ function ProductModal({ selectedProductId, onAddToCart }) {
                             <button 
                                 className="btn btn-outline-secondary btn-qty" 
                                 type="button" 
-                                onClick={() => handleQuantityChange(-1)}
-                                disabled={isOutOfStock} // Khoá nút
+                                onClick={() => handleButtonChange(-1)} // Đổi tên hàm
+                                disabled={isOutOfStock}
                             >-</button>
-                            <input type="text" className="form-control text-center input-qty" value={quantity} readOnly />
+                            
+                            <input 
+                                type="number" // Đổi thành type number (hoặc text)
+                                className="form-control text-center input-qty" 
+                                value={quantity} 
+                                onChange={handleInputChange} // Thêm sự kiện onChange
+                                onBlur={handleBlur}          // Thêm sự kiện onBlur
+                                disabled={isOutOfStock}
+                                min="1"
+                                max={product?.soluongton}
+                            />
+                            
                             <button 
                                 className="btn btn-outline-secondary btn-qty" 
                                 type="button" 
-                                onClick={() => handleQuantityChange(1)}
-                                disabled={isOutOfStock} // Khoá nút
+                                onClick={() => handleButtonChange(1)} // Đổi tên hàm
+                                disabled={isOutOfStock}
                             >+</button>
                         </div>
                     </div>

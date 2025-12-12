@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Save, Printer, RefreshCw, CheckCircle } from 'lucide-react';
+import { Plus, Trash2, Save, Printer, RefreshCw, CheckCircle, Search, Filter, X } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable'; // <-- SỬA CÁCH IMPORT QUAN TRỌNG
-
 const WarehouseImport = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [products, setProducts] = useState([]);
+
+    // --- 1. STATE MỚI CHO BỘ LỌC ---
+    const [categories, setCategories] = useState([]); // Danh sách danh mục
+    const [searchTerm, setSearchTerm] = useState(''); // Từ khóa tìm kiếm
+    const [filterCategory, setFilterCategory] = useState(''); // ID danh mục đang chọn
     
     // Dữ liệu đang nhập
     const [importData, setImportData] = useState({
@@ -21,19 +25,35 @@ const WarehouseImport = () => {
         maThuoc: '', soLo: '', ngaySanXuat: '', hanSuDung: '', soLuong: 1, donGiaNhap: 0
     });
 
+    // --- 2. LOGIC LỌC SẢN PHẨM (MỚI) ---
+    const filteredProducts = products.filter(p => {
+        const matchSearch = p.tenthuoc.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            p.mathuoc.toString().includes(searchTerm);
+        
+        const matchCategory = filterCategory ? p.maloai === parseInt(filterCategory) : true;
+
+        return matchSearch && matchCategory;
+    });
+    
     const loadInitialData = async () => {
         const token = localStorage.getItem('authToken');
         try {
+            // 1. Load NCC
             const supRes = await fetch('http://localhost:5223/api/admin/warehouse/suppliers', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if(supRes.ok) setSuppliers(await supRes.json());
 
-            // Lấy danh sách thuốc (bao gồm cả Đơn vị tính để in PDF)
+            // 2. Load Sản phẩm (Lấy tất cả)
             const prodRes = await fetch('http://localhost:5223/api/admin/products', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if(prodRes.ok) setProducts(await prodRes.json());
+
+            // 3. Load Danh mục (MỚI)
+            const catRes = await fetch('http://localhost:5223/api/LoaiThuoc');
+            if(catRes.ok) setCategories(await catRes.json());
+
         } catch (e) { console.error(e); }
     };
 
@@ -110,11 +130,10 @@ const WarehouseImport = () => {
         // Nhà cung cấp
         doc.text(`Nha cung cap: ${removeVietnameseTones(selectedSupplier.tenNCC || '................................................')}`, 15, yPos);
         
-        // Địa chỉ (Placeholder vì API hiện tại chưa trả về địa chỉ NCC)
-        doc.text(`Dia chi: ....................................................................................................................`, 15, yPos + lineGap);
+        // --- SỬA ĐOẠN NÀY: Điền Địa chỉ & SĐT thật ---
+        doc.text(`Dia chi: ${removeVietnameseTones(selectedSupplier.diaChi || '')}`, 15, yPos + lineGap);
         
-        // SĐT (Placeholder)
-        doc.text(`So dien thoai: ......................................`, 15, yPos + lineGap*2);
+        doc.text(`So dien thoai: ${selectedSupplier.sdt || ''}`, 15, yPos + lineGap*2);
         
         // Người giao hàng
         doc.text(`Nguoi giao hang: ..........................................................................................................`, 15, yPos + lineGap*3);
@@ -301,6 +320,21 @@ const WarehouseImport = () => {
                                 <option key={s.maNCC || s.MaNCC} value={s.maNCC || s.MaNCC}>{s.tenNCC || s.TenNCC}</option>
                             ))}
                         </select>
+
+                        {/* --- THÊM ĐOẠN NÀY: Hiển thị chi tiết NCC sau khi chọn --- */}
+                        {importData.maNCC && (
+                            <div className="mt-2 text-sm text-gray-600 bg-blue-50 p-2 rounded border border-blue-100">
+                                {(() => {
+                                    const s = suppliers.find(x => x.maNCC == importData.maNCC);
+                                    if(s) return (
+                                        <>
+                                            <p><strong>Đ/c:</strong> {s.diaChi}</p>
+                                            <p><strong>SĐT:</strong> {s.sdt}</p>
+                                        </>
+                                    )
+                                })()}
+                            </div>
+                        )}
                     </div>
                     <div>
                         <label className="block font-bold mb-2 text-gray-700">Ghi chú</label>
@@ -310,19 +344,68 @@ const WarehouseImport = () => {
 
                 <div className="bg-white p-6 rounded shadow-sm border border-blue-100">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                        
+                        {/* --- 3. PHẦN CHỌN THUỐC ĐƯỢC NÂNG CẤP --- */}
+                        <div className="md:col-span-12 mb-2 bg-gray-50 p-3 rounded border border-dashed border-gray-300">
+                            <label className="block text-xs font-bold text-blue-700 mb-2 uppercase">Tìm kiếm & Lọc thuốc nhanh</label>
+                            <div className="flex gap-2">
+                                {/* Tìm kiếm */}
+                                <div className="relative flex-1">
+                                    <Search className="absolute left-2 top-2.5 text-gray-400" size={16} />
+                                    <input 
+                                        type="text"
+                                        placeholder="Gõ tên thuốc hoặc mã thuốc..."
+                                        className="w-full pl-8 pr-2 py-2 border rounded text-sm focus:outline-none focus:border-blue-500"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                    {searchTerm && (
+                                        <button onClick={() => setSearchTerm('')} className="absolute right-2 top-2.5 text-gray-400 hover:text-red-500">
+                                            <X size={16} />
+                                        </button>
+                                    )}
+                                </div>
+                                
+                                {/* Lọc Danh mục */}
+                                <div className="relative w-1/3 md:w-1/4">
+                                    <select 
+                                        className="w-full pl-2 pr-8 py-2 border rounded text-sm appearance-none focus:outline-none focus:border-blue-500"
+                                        value={filterCategory}
+                                        onChange={(e) => setFilterCategory(e.target.value)}
+                                    >
+                                        <option value="">Tất cả danh mục</option>
+                                        {categories.map(c => (
+                                            <option key={c.maloai} value={c.maloai}>{c.tenloai}</option>
+                                        ))}
+                                    </select>
+                                    <Filter className="absolute right-2 top-2.5 text-gray-400 pointer-events-none" size={16}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Dropdown chọn thuốc (Chỉ hiển thị thuốc đã lọc) */}
                         <div className="md:col-span-3">
-                            <label className="block text-xs font-bold text-gray-500 mb-1">Sản phẩm</label>
-                            <select className="w-full border p-2 rounded" value={currentRow.maThuoc} onChange={(e) => setCurrentRow({...currentRow, maThuoc: e.target.value})}>
+                            <label className="block text-xs font-bold text-gray-500 mb-1">Chọn sản phẩm ({filteredProducts.length})</label>
+                            <select 
+                                className="w-full border p-2 rounded focus:ring-2 focus:ring-green-500" 
+                                value={currentRow.maThuoc} 
+                                onChange={(e) => setCurrentRow({...currentRow, maThuoc: e.target.value})}
+                            >
                                 <option value="">-- Chọn thuốc --</option>
-                                {products.map(p => <option key={p.mathuoc} value={p.mathuoc}>{p.tenthuoc}</option>)}
+                                {filteredProducts.map(p => (
+                                    <option key={p.mathuoc} value={p.mathuoc}>
+                                        {p.tenthuoc} (Mã: {p.mathuoc}) - Tồn: {p.soluongton}
+                                    </option>
+                                ))}
                             </select>
                         </div>
+                        
                         <div className="md:col-span-2"><label className="block text-xs font-bold text-gray-500 mb-1">Số lô</label><input type="text" className="w-full border p-2 rounded uppercase" value={currentRow.soLo} onChange={(e) => setCurrentRow({...currentRow, soLo: e.target.value})}/></div>
                         <div className="md:col-span-2"><label className="block text-xs font-bold text-gray-500 mb-1">NSX</label><input type="date" className="w-full border p-2 rounded" value={currentRow.ngaySanXuat} onChange={(e) => setCurrentRow({...currentRow, ngaySanXuat: e.target.value})}/></div>
                         <div className="md:col-span-2"><label className="block text-xs font-bold text-gray-500 mb-1">HSD</label><input type="date" className="w-full border p-2 rounded" value={currentRow.hanSuDung} onChange={(e) => setCurrentRow({...currentRow, hanSuDung: e.target.value})}/></div>
                         <div className="md:col-span-1"><label className="block text-xs font-bold text-gray-500 mb-1">SL</label><input type="number" className="w-full border p-2 rounded" value={currentRow.soLuong} min="1" onChange={(e) => setCurrentRow({...currentRow, soLuong: parseInt(e.target.value)})}/></div>
-                        <div className="md:col-span-1"><label className="block text-xs font-bold text-gray-500 mb-1">Giá</label><input type="number" className="w-full border p-2 rounded" value={currentRow.donGiaNhap} min="0" onChange={(e) => setCurrentRow({...currentRow, donGiaNhap: parseFloat(e.target.value)})}/></div>
-                        <div className="md:col-span-1"><button onClick={handleAddRow} className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"><Plus size={20}/></button></div>
+                        <div className="md:col-span-1"><label className="block text-xs font-bold text-gray-500 mb-1">Giá nhập</label><input type="number" className="w-full border p-2 rounded" value={currentRow.donGiaNhap} min="0" onChange={(e) => setCurrentRow({...currentRow, donGiaNhap: parseFloat(e.target.value)})}/></div>
+                        <div className="md:col-span-1"><button onClick={handleAddRow} className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 font-bold"><Plus size={20}/></button></div>
                     </div>
                 </div>
 
